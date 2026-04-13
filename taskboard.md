@@ -19,33 +19,41 @@
 
 ## 📝 Tasks Board
 
-| Done | # | Task | Label | Priority | Time | Assigné | Notes |
+| Done | # | Task | Label | Priority | Time | Assigné | Detailed Implementation & Files |
 | :---: | :--- | :--- | :---: | :---: | :---: | :--- | :--- |
-| [ ] | T-01 | Initialiser le repo GitHub + `.gitignore` | `ARCH` | High | 0.5h | — | Ajouter `vendor/` dans `.gitignore` |
-| [ ] | T-02 | Configurer `composer.json` avec PSR-4 autoloading | `ARCH` | High | 0.5h | — | `App\\` → `src/` |
-| [ ] | T-03 | Exécuter `composer dump-autoload` et vérifier | `ARCH` | High | 0.2h | — | |
-| [ ] | T-04 | Créer la structure de dossiers (`src/Controllers`, `src/Models`, `views/`, `public/`) | `ARCH` | High | 0.5h | — | |
-| [ ] | T-05 | Implémenter le Router personnalisé (`src/Core/Router.php`) | `ARCH` | High | 2h | — | Toutes URLs via `index.php` |
-| [ ] | T-06 | Configurer `.htaccess` pour rediriger vers `index.php` | `ARCH` | High | 0.5h | — | |
-| [ ] | T-07 | Créer le script SQL complet (tables + FK) | `DOC` | High | 2h | — | games, reservations, sessions, tables |
-| [ ] | T-08 | Ajouter les seeds SQL (4 tables, 15 jeux, 5 réservations, 2 sessions, 1 admin) | `DOC` | Medium | 1.5h | — | |
-| [ ] | T-09 | Créer le Jira board + renseigner toutes les US | `AGILE` | Medium | 1h | — | ⚠️ Deadline lundi 13/04 16:00 |
-| [ ] | T-10 | Répartir les modules officiellement (1 module / membre) | `AGILE` | Medium | 0.5h | — | |
-| [ ] | T-11 | `US1` — Lister tous les jeux (`GET /games`) | `MOD1` | High | 3h | Membre 1 | |
-| [ ] | T-12 | `US2` — Détails d'un jeu (`GET /games/{id}`) | `MOD1` | Medium | 2h | Membre 1 | |
-| [ ] | T-13 | `US3` — CRUD Admin jeux (Add / Edit / Delete) | `MOD1` | High | 4h | Membre 1 | |
-| [ ] | T-14 | `US4` — Filtrer jeux par catégorie | `MOD1` | Low | 1.5h | Membre 1 | |
-| [ ] | T-15 | `US5` — Vérifier disponibilité des tables | `MOD2` | High | 3h | Membre 2 | |
-| [ ] | T-16 | `US6` — Créer une réservation (`POST /reservations`) | `MOD2` | High | 3h | Membre 2 | Validation nom, téléphone, date |
-| [ ] | T-17 | `US7` — Historique des réservations client | `MOD2` | Medium | 2h | Membre 2 | |
-| [ ] | T-18 | `US8` — Admin : voir & gérer réservations du jour | `MOD2` | Medium | 3h | Membre 2 | Statuts : confirmer / annuler |
-| [ ] | T-19 | `US9` — Démarrer une session (réservation + jeu + table) | `MOD3` | High | 4h | Membre 3 | |
-| [ ] | T-20 | `US10` — Dashboard sessions actives en temps réel | `MOD3` | Medium | 3h | Membre 3 | |
-| [ ] | T-21 | `US11` — Terminer une session / libérer la table | `MOD3` | High | 2h | Membre 3 | |
-| [ ] | T-22 | `US12` — Historique complet des sessions | `MOD3` | Medium | 2h | Membre 3 | |
-| [ ] | T-23 | Choisir et implémenter le bonus trinôme | `MOD1`/`MOD2`/`MOD3` | Low | 4h | — | 1 seule extension |
-| [ ] | T-24 | Écrire le `README.md` (arborescence, routes, install) | `DOC` | Medium | 1h | — | |
-| [ ] | T-25 | Préparer screenshot du board Jira final | `DOC` | Low | 0.5h | — | |
+| [ ] | T-01 | Initialiser le repo GitHub + `.gitignore` | `ARCH` | High | 0.5h | — | **Files to Create:**<br>- `.gitignore`<br>- `README.md`<br>- `LICENSE` |
+| [ ] | T-02 | Configurer `composer.json` PSR-4 | `ARCH` | High | 0.5h | — | **Files to Create/Edit:**<br>- `composer.json`: Configure PSR-4 `App\` mapping to `src/` |
+| [ ] | T-03 | `composer dump-autoload` | `ARCH` | High | 0.2h | — | **Action:**<br>- Generate `vendor/autoload.php` |
+| [ ] | T-04 | Structure MVC Complète | `ARCH` | High | 0.5h | — | **Directories to Create:**<br>- `src/Controllers/`, `src/Models/`, `src/Core/`<br>- `views/`<br>- `public/assets/{css,img}/`<br>- `config/`<br>- `tests/` |
+| [ ] | T-05 | Router & Front Controller | `ARCH` | High | 2h | — | **Files to Create:**<br>- `src/Core/Router.php`: Handle dynamic routing<br>- `public/index.php`: Main entry point |
+| [ ] | T-06 | `.htaccess` Configuration | `ARCH` | High | 0.5h | — | **Files to Create:**<br>- `.htaccess`: Redirect all requests to `public/index.php` |
+| [ ] | T-07 | Script SQL (Schema) | `DOC` | High | 2h | — | **Files to Create:**<br>- `config/database.sql`: Tables for `games`, `reservations`, `sessions`, `tables` |
+| [ ] | T-08 | Seeding SQL (Initial Data) | `DOC` | Medium | 1.5h | — | **Files to Create:**<br>- `config/seeds.sql`: Insert 15+ games, 5 reservations, 2 sessions, 1 admin |
+| [ ] | T-09 | Jira Board Setup | `AGILE` | Medium | 1h | — | **Action:** Create project and US in Jira |
+| [ ] | T-10 | Répartition & Planning | `AGILE` | Medium | 0.5h | — | **Action:** Assign members to modules in this file |
+| [ ] | T-11 | `US1` — Catalogue (Liste) | `MOD1` | High | 3h | Membre 1 | **Files to Create:**<br>- `src/Controllers/GameController.php` (index)<br>- `src/Models/Game.php` (all)<br>- `views/games/index.php` (User UI)<br>**Route:** `GET /games` |
+| [ ] | T-12 | `US2` — Détails d'un jeu | `MOD1` | Medium | 2h | Membre 1 | **Files to Create/Edit:**<br>- `src/Controllers/GameController.php` (show)<br>- `views/games/details.php` (User UI)<br>**Route:** `GET /games/{id}` |
+| [ ] | T-13 | `US3` — CRUD Admin Jeux | `MOD1` | High | 4h | Membre 1 | **Files to Create:**<br>- `src/Controllers/Admin/GameController.php` (CRUD logic)<br>- `views/admin/games/index.php` (List table)<br>- `views/admin/games/create.php` (Add form)<br>- `views/admin/games/edit.php` (Edit form)<br>**Routes:** `/admin/games/**/*` |
+| [ ] | T-14 | `US4` — Filtre par catégorie | `MOD1` | Low | 1.5h | Membre 1 | **Modifications:**<br>- `src/Models/Game.php`: Add `filterByCategory` method<br>- Update `GameController` to handle query params |
+| [ ] | T-15 | `US5` — Dispo des Tables | `MOD2` | High | 3h | Membre 2 | **Files to Create:**<br>- `src/Models/TableModel.php`: Check table availability status (pure PHP logic) |
+| [ ] | T-16 | `US6` — Créer Réservation | `MOD2` | High | 3h | Membre 2 | **Files to Create:**<br>- `src/Models/Reservation.php`: Store reservation data<br>- `src/Controllers/ReservationController.php`: Process form<br>- `views/reservations/create.php`: Form UI<br>**Route:** `POST /reservations/create` |
+| [ ] | T-17 | `US7` — Historique Client | `MOD2` | Medium | 2h | Membre 2 | **Files to Create:**<br>- `views/reservations/index.php`: User history list (PHP/HTML only) |
+| [ ] | T-18 | `US8` — Admin Résas | `MOD2` | Medium | 3h | Membre 2 | **Files to Create:**<br>- `src/Controllers/Admin/ReservationController.php`: Accept/Cancel logic<br>- `views/admin/reservations/index.php`: Admin list view |
+| [ ] | T-19 | `US9` — Démarrer Session | `MOD3` | High | 4h | Membre 3 | **Files to Create:**<br>- `src/Models/Session.php`: Manage active sessions<br>- `src/Controllers/SessionController.php`: Start logic<br>- `views/sessions/start.php`: UI for starting |
+| [ ] | T-20 | `US10` — Dashboard Active | `MOD3` | Medium | 3h | Membre 3 | **Files to Create:**<br>- `views/admin/sessions/dashboard.php`: PHP list of active sessions (Manual refresh via HTML meta or button) |
+| [ ] | T-21 | `US11` — Terminer Session | `MOD3` | High | 2h | Membre 3 | **Modifications:**<br>- `SessionController.php`: Add `stop` method<br>- Logic to free up the table in `tables` table |
+| [ ] | T-22 | `US12` — Historique complet | `MOD3` | Medium | 2h | Membre 3 | **Files to Create:**<br>- `views/admin/sessions/history.php`: Past sessions list<br>- `src/Models/Session.php`: `getHistory` method |
+| [ ] | T-23 | Extension Bonus | `QA` | Low | 4h | — | **Action:** Implement chosen bonus feature (No JS) |
+| [ ] | T-24 | `README.md` Technique | `DOC` | Medium | 1h | — | **Update:** Add installation guide, routes table |
+| [ ] | T-25 | Capture Jira Board | `DOC` | Low | 0.5h | — | **Action:** Finalize and screenshot Jira state |
+| [ ] | T-26 | **Setup Environnement de Test** | `QA` | High | 1h | — | **Dirs:** Create `tests/` at the root.<br>**Files:** `tests/test_bootstrap.php` (load autoloader) |
+| [ ] | T-27 | **Test Unitaires: Modèles** | `QA` | High | 2h | — | **Files to Create:**<br>- `tests/GameTest.php`: Validate DB fetch logic<br>- `tests/ReservationTest.php`: Validate reservation overlapping rules |
+| [ ] | T-28 | **Test d'Intégration: Routes** | `QA` | Medium | 2h | — | **Files:** `tests/RouteTest.php`: Verify Router-to-Controller mapping. |
+| [ ] | T-29 | **Audit Sécurité (SQLi/XSS)** | `QA` | High | 1.5h | — | **Action:** Verify `PDO::prepare` across all models; test form inputs with special characters (`<script>`, `'`, etc.). |
+| [ ] | T-30 | **Vérification Intégrité DB (FK)** | `QA` | High | 1h | — | **Action:** Test "Cascade Delete" or isolation: verify that deleting a game doesn't break active sessions or reservations. |
+| [ ] | T-31 | **Test de Validation de Formulaires** | `QA` | High | 1.5h | — | **Files:** `tests/ValidationTest.php`: Test edge cases (duplicate names, dates in the past, invalid phone formats). |
+| [ ] | T-32 | **Smoke Test: Navigation UI** | `QA` | Medium | 1h | — | **Action:** Manual click-through of every route to ensure no 404s or 500s in any module. |
+| [ ] | T-33 | **Audit Performance SQL (JOINs)** | `QA` | Low | 1h | — | **Action:** Verify that sessions dashboard and history use efficient `JOIN` queries instead of multiple selects. |
 
 ---
 
