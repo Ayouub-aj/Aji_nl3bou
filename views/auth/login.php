@@ -7,15 +7,14 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Aji L3bo | Sign In</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="tailwind-config.js"></script>
+    <script src="../style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="../pages/style.css">
-    <script src="main.js" defer></script>
-</head>
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="../style/main.js" defer></script>
 </head>
 
 <body class="bg-surface text-on-surface min-h-screen flex flex-col">
@@ -42,10 +41,10 @@
                 <!-- Form -->
                 <form class="space-y-6 mt-8">
                     <div class="space-y-4">
-                        <!-- Username/Email -->
+                        <!-- Username -->
                         <div class="space-y-2">
                             <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant px-1"
-                                for="identifier">Email or Username</label>
+                                for="identifier">Username</label>
                             <div class="relative group">
                                 <span
                                     class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
@@ -123,7 +122,7 @@
     <footer
         class="w-full absolute bottom-0 left-0 flex flex-col md:flex-row justify-between items-center px-8 py-6 w-full opacity-60 z-10">
         <div class="text-sm font-bold text-zinc-400 font-inter">
-            © 2024 The Curated Playroom. All Rights Reserved.
+            © <?php echo date("Y"); ?> The Curated Playroom. All Rights Reserved.
         </div>
         <div
             class="flex gap-6 mt-4 md:mt-0 font-inter text-[12px] uppercase tracking-widest text-violet-300 dark:text-violet-200">

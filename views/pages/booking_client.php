@@ -7,7 +7,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>The Curated Playroom | Game Details</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script src="tailwind-config.js"></script>
+  <script src="../style/tailwind-config.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
@@ -15,7 +15,6 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="../style/style.css">
   <script src="../style/main.js" defer></script>
-</head>
 </head>
 
 <body class="bg-background text-on-background selection:bg-primary/30">

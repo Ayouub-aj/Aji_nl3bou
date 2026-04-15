@@ -22,68 +22,7 @@
 
 <body class="bg-background text-on-background min-h-screen flex">
     <!-- SideNavBar -->
-    <aside id="sidebar" class="admin-sidebar h-full w-64 fixed left-0 top-0 bg-[#131313] flex flex-col py-6 px-4 z-50">
-        <div class="mb-10 px-2 flex justify-between items-center">
-            <div>
-                <div class="text-xl font-bold tracking-tighter text-[#b6a0ff]">The Curated Playroom</div>
-                <div class="text-[10px] uppercase tracking-widest text-gray-500 mt-1 font-bold">Admin Terminal</div>
-            </div>
-            <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-white">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-        <nav class="flex-1 space-y-1">
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:text-gray-200 hover:bg-[#1e1e1e] transition-colors duration-200"
-                href="dashboard_admin.php">
-                <span class="material-symbols-outlined">dashboard</span>
-                <span class="font-medium">Dashboard</span>
-            </a>
-            <!-- Active Tab: Inventory -->
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#b6a0ff] font-bold border-r-4 border-[#b6a0ff] bg-[#1e1e1e] transition-colors duration-200"
-                href="inventory.php">
-                <span class="material-symbols-outlined">inventory_2</span>
-                <span class="font-medium">Inventory</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:text-gray-200 hover:bg-[#1e1e1e] transition-colors duration-200"
-                href="reservation_admin.php">
-                <span class="material-symbols-outlined">event_available</span>
-                <span class="font-medium">Reservations</span>
-            </a>
-            <!-- <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:text-gray-200 hover:bg-[#1e1e1e] transition-colors duration-200"
-                href="#">
-                <span class="material-symbols-outlined">history</span>
-                <span class="font-medium">History</span>
-            </a> -->
-            <!-- <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:text-gray-200 hover:bg-[#1e1e1e] transition-colors duration-200"
-                href="#">
-                <span class="material-symbols-outlined">analytics</span>
-                <span class="font-medium">Stats</span>
-                <a> -->
-        </nav>
-        <div class="mt-auto pt-6 border-t border-white/5 space-y-1">
-            <!-- <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:text-gray-200 hover:bg-[#1e1e1e] transition-colors duration-200"
-                href="#">
-                <span class="material-symbols-outlined">settings</span>
-                <span class="font-medium text-sm">Settings</span>
-            </a> -->
-            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:text-gray-200 hover:bg-[#1e1e1e] transition-colors duration-200"
-                href="login.php">
-                <span class="material-symbols-outlined">logout</span>
-                <span class="font-medium text-sm">Log Out</span>
-            </a>
-            <div class="mt-4 px-4 flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
-                    <img class="w-full h-full object-cover"
-                        data-alt="professional headshot of a café administrator with a friendly expression in a modern office setting"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU21DfbLx0Ja5N5FFCyt9BB3t6p0b0l1-HCQaaxjCHmT5_hPWuzCa6zWtmF_Uu2OC6zxwrIxAeW1t6KAmfyuiwZB5vHkCZpDMcSZfwEw3qAaJFPT-Xwn_uhMy98JTI2ivjffAQR4jBfAobpHhdetMS1654PPrGCwswtbwvR2-rIAaK64W6V4a6Z2KRktDNKAJYo5UEdJYbvNubJetyUjqjyyKQ3ItzCGbtaNToD106trMTA-jW3FxnPMfOsRurJfAghZ4TNP8pdVQ" />
-                </div>
-                <div class="text-xs">
-                    <div class="font-bold text-on-surface">Admin User</div>
-                    <div class="text-gray-500">Super Admin</div>
-                </div>
-            </div>
-        </div>
-    </aside>
+    <?php include '../includes/side_menu.php'; ?>
     <!-- Main Canvas -->
     <main class="admin-main ml-64 flex-1 flex flex-col min-h-screen bg-surface">
         <!-- TopNavBar -->
@@ -140,6 +79,7 @@
                     </button>
                 </div>
             </div>
+            <form action="add_game.php" method="POST"> <!-- Added form tag -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Left: Form Sections -->
                 <div class="lg:col-span-2 space-y-6">
@@ -181,7 +121,6 @@
                         </div>
                     </section>
                     <!-- Game Mechanics -->
-                    <form action="add_game.php" method="POST"> <!-- Added form tag -->
                         <section class="bg-surface-container-low rounded-xl p-8 space-y-6">
                             <h2 class="text-lg font-bold flex items-center gap-2">
                                 <span class="w-1.5 h-6 bg-secondary rounded-full"></span>
@@ -279,41 +218,6 @@
                         </div>
                     </section>
                     </form> <!-- Closed form tag after image upload section -->
-                    <!-- Preview Card -->
-                    <section class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl">
-                        <div class="h-40 w-full bg-surface-container-highest relative">
-                            <img class="w-full h-full object-cover opacity-30 grayscale"
-                                data-alt="abstract artistic background with geometric shapes and soft purple neon glow for placeholder content"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_1K685FQ9vCsXI_nILAmMMLDDDLMuPXKYOyu-2Rv5voSiqK-t1ARlsDtNSa6g4IrWwG1n5BFoOxdlnLIcBc9-dPnBlkm43tLLz6L8IumEudcACjbcx68QKItxoS3bb7xlqWM2ygDHIBm1RPro3gmuCCaMKRGYwTDBtFEqTDizMnJpHtCXRuOe9cq-Cz7TviujlpaNRbbXib-fJ4JtKlBn_OSR5BlWYxBPMrnEfshXuKIMzZTBuiw5f9XTw-9HKSuu-SViIqav78U" />
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest italic">Preview
-                                    State</span>
-                            </div>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <div class="h-6 w-3/4 bg-surface-container-high rounded animate-pulse"></div>
-                            <div class="flex gap-2">
-                                <div class="h-6 w-16 bg-primary/20 rounded-full"></div>
-                                <div class="h-6 w-12 bg-secondary/20 rounded-full"></div>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="h-3 w-full bg-surface-container-high rounded"></div>
-                                <div class="h-3 w-full bg-surface-container-high rounded"></div>
-                                <div class="h-3 w-2/3 bg-surface-container-high rounded"></div>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-surface-container-low p-4 border-t border-white/5 flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-xs text-gray-500">group</span>
-                                <span class="text-[10px] text-gray-400">1 - 5 Players</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-xs text-gray-500">schedule</span>
-                                <span class="text-[10px] text-gray-400">60 mins</span>
-                            </div>
-                        </div>
-                    </section>
                 </div>
             </div>
             <!-- Footer -->

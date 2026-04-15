@@ -15,8 +15,8 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="../pages/tailwind-config.js"></script>
-    <link href="../pages/style.css" rel="stylesheet" />
+    <script src="../style/tailwind-config.js"></script>
+    <link href="../style/style.css" rel="stylesheet" />
 </head>
 
 <body

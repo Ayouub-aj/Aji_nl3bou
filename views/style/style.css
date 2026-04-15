@@ -143,3 +143,8 @@ input[type="range"]::-webkit-slider-thumb {
 .primary-gradient {
   background: linear-gradient(to bottom, var(--primary), var(--primary-dim));
 }
+
+/* Dark Mode fixes for input elements */
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
