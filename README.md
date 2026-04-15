@@ -14,9 +14,9 @@ Application web professionnelle de gestion pour un café de jeux de société ("
 
 ---
 
-## 🏗️ Architecture & Conception (MCD / MLD / UML)
+## 🏗️ Architecture & Conception 
 
-### 📊 Modèle Conceptuel de Données (MCD - Entity Relationship)
+### 📊 erDiagram using mermaid
 
 Le système repose sur quatre entités principales interconnectées.
 
@@ -77,7 +77,7 @@ erDiagram
     
 ```
 
-### 📋 Modèle Logique de Données (MLD)
+### 📋 My data tables
 
 1.  **GAMES** (**id**, title, category, description, difficulty, min_players, max_players, duration, status)
 2.  **TABLES** (**id**, number , capacity, status)
@@ -85,7 +85,7 @@ erDiagram
 4.  **SESSIONS** (**id**, start_time, end_time, status, reservation_id, game_id, table_id)
 5.  **USERS** (**id**, username, password, role)
 
-### 🗺️ Diagramme de Classes (UML)
+### 🗺️ classDiagram using mermaid
 
 ```mermaid
 classDiagram
