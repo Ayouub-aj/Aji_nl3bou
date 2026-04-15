@@ -73,9 +73,9 @@
 
 | Question | Réponse |
 |----------|---------|
-| ✅ Ce qui va bien | |
-| ⚠️ Ce qui bloque | |
-| 🔧 Ce qu'on améliore | |
+| ✅ Ce qui va bien |planning tasks and the ui is almost complete, smooth communication, full control over git workflow  |
+| ⚠️ Ce qui bloque | slow ticket transition in jira from to do and column in progress and review|
+| 🔧 Ce qu'on améliore | finishing tasks faster and moving them to the next column, testing code for bugs and security|
 
 ---
 
