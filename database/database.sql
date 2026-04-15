@@ -36,8 +36,8 @@ create table reservations (
     time TIME NOT NULL,
     status ENUM('pending', 'confirmed', 'cancelled') DEFAULT 'pending',
     table_id INT NOT NULL,
-    FOREIGN KEY (table_id) REFERENCES tables(id) ON DELETE CASCADE ON UPDATE CASCADE 
-    foreign key (users_id) references users(id) on delete cascade on update cascade
+    FOREIGN KEY (table_id) REFERENCES tables(id) ON DELETE CASCADE ON UPDATE CASCADE ,
+    FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table sessions (
