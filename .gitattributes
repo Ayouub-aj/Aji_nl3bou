@@ -1,0 +1,2 @@
+*.php diff=php
+*.php linguist-language=php
