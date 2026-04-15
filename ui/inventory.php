@@ -102,11 +102,13 @@
           <span class="material-symbols-outlined text-xl">filter_list</span>
           <span class="text-sm font-medium">Filter</span>
         </button>
-        <button
-          class="flex items-center gap-2 bg-gradient-to-b from-primary to-primary-dim text-on-primary-fixed px-6 py-2.5 rounded-lg font-bold shadow-lg shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] transition-all">
-          <span class="material-symbols-outlined">add_circle</span>
-          <span>Add New Game</span>
-        </button>
+        <a href="add_game.php">
+          <button
+            class="flex items-center gap-2 bg-gradient-to-b from-primary to-primary-dim text-on-primary-fixed px-6 py-2.5 rounded-lg font-bold shadow-lg shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] transition-all">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span>Add New Game</span>
+          </button>
+        </a>
       </div>
     </header>
     <!-- Content Canvas -->
