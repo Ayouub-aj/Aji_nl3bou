@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../../app/core/Security.php'; ?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -45,7 +46,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div class="lg:col-span-7 space-y-8">
                     <form class="space-y-10" method="POST" action="add_reservation.php">
-                        <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                        <input type="hidden" name="csrf_token" value="<?php echo Security::generateCSRFToken(); ?>">
                         <section class="bg-surface-container-low p-8 rounded-xl">
                             <h3
                                 class="text-secondary font-headline font-bold text-sm uppercase tracking-widest mb-6 flex items-center gap-2">

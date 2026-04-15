@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../../app/core/Security.php'; ?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -40,7 +41,7 @@
                 <!-- Admin/Client Toggle (Asymmetric Tab Design) -->
                 <!-- Form -->
                 <form class="space-y-6 mt-8" method="POST" action="login.php">
-                    <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                    <input type="hidden" name="csrf_token" value="<?php echo Security::generateCSRFToken(); ?>">
                     <div class="space-y-4">
                         <!-- Username -->
                         <div class="space-y-2">

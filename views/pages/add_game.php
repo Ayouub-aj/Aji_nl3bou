@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../../app/core/Security.php'; ?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -60,7 +61,7 @@
         <!-- Content Area -->
         <div class="mt-16 p-10 max-w-5xl mx-auto w-full">
             <form action="add_game.php" method="POST">
-                <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                <input type="hidden" name="csrf_token" value="<?php echo Security::generateCSRFToken(); ?>">
                 <div class="flex items-center justify-between mb-10">
                     <div>
                         <nav class="flex items-center gap-2 text-xs text-gray-500 mb-2 font-bold uppercase tracking-wider">

@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../../app/core/Security.php'; ?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -52,7 +53,7 @@
             <!-- Central Card (Glassmorphism) -->
             <div class="glass-card rounded-xl p-8 border border-outline-variant/15 shadow-2xl">
                 <form class="space-y-6" method="POST" action="add_password.php">
-                    <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                    <input type="hidden" name="csrf_token" value="<?php echo Security::generateCSRFToken(); ?>">
                     <!-- New Password Field -->
                     <div class="space-y-2">
                         <label class="font-label text-xs uppercase tracking-widest text-on-surface-variant ml-1">New
