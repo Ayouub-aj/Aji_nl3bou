@@ -13,8 +13,8 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
-    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="../style/main.js" defer></script>
 </head>
 </head>
 
@@ -385,18 +385,7 @@
             </div>
         </div>
     </main>
-    <footer class="ml-64 bg-[#0e0e0e] py-12 border-t border-[#b6a0ff]/10 font-['Inter'] text-sm">
-        <div class="flex flex-col items-center justify-center gap-6 w-full">
-            <div class="text-lg font-bold text-[#b6a0ff]">The Curated Playroom</div>
-            <div class="flex gap-8 text-gray-500">
-                <a class="hover:text-white transition-colors" href="#">Terms</a>
-                <a class="hover:text-white transition-colors" href="#">Privacy</a>
-                <a class="hover:text-white transition-colors" href="#">Careers</a>
-                <a class="hover:text-white transition-colors" href="#">Contact</a>
-            </div>
-            <p class="text-gray-500">© 2024 The Curated Playroom. Roll with intention.</p>
-        </div>
-    </footer>
+    <?php include '../includes/footer.php'; ?>
 </body>
 
 </html>

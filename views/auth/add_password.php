@@ -15,8 +15,8 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="tailwind-config.js"></script>
-    <link href="style.css" rel="stylesheet" />
+    <script src="../pages/tailwind-config.js"></script>
+    <link href="../pages/style.css" rel="stylesheet" />
 </head>
 
 <body
@@ -133,7 +133,7 @@
     <!-- Footer: Transcribed from JSON -->
     <footer
         class="bg-[#0e0e0e] text-[#b6a0ff] font-['Inter'] text-xs uppercase tracking-widest docked full-width bottom-0 border-t border-[#ffffff15] flat no shadows w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="text-gray-500">© 2024 The Curated Playroom. All rights reserved.</div>
+        <div class="text-gray-500">© <?php echo date('Y'); ?> The Curated Playroom. All rights reserved.</div>
         <div class="flex gap-6">
             <a class="text-gray-500 hover:text-[#b5ffc2] transition-colors opacity-80 hover:opacity-100" href="#">Terms
                 of Service</a>

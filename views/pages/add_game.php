@@ -16,8 +16,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <script src="tailwind-config.js"></script>
-    <link href="style.css" rel="stylesheet" />
+    <script src="../style/tailwind-config.js"></script>
+    <link href="../style/style.css" rel="stylesheet" />
 </head>
 
 <body class="bg-background text-on-background min-h-screen flex">
