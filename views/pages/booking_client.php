@@ -7,46 +7,18 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>The Curated Playroom | Game Details</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script src="tailwind-config.js"></script>
+  <script src="../style/tailwind-config.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css">
-  <script src="main.js" defer></script>
-</head>
+  <link rel="stylesheet" href="../style/style.css">
+  <script src="../style/main.js" defer></script>
 </head>
 
 <body class="bg-background text-on-background selection:bg-primary/30">
-  <nav class="w-full top-0 sticky z-50 bg-[#0e0e0e] dark:bg-[#0e0e0e] shadow-none">
-    <div class="flex justify-between items-center px-8 py-4 w-full max-w-full mx-auto">
-      <div class="text-2xl font-bold tracking-tighter text-[#b6a0ff] font-['Plus_Jakarta_Sans'] tracking-tight">
-        The Curated Playroom
-      </div>
-      <div class="hidden md:flex items-center gap-8">
-        <a class="text-[#b6a0ff] font-bold border-b-2 border-[#b6a0ff] pb-1 font-['Plus_Jakarta_Sans'] tracking-tight hover:text-[#b6a0ff] transition-colors active:scale-95 duration-200"
-          href="#">Explore</a>
-        <a class="text-gray-400 font-medium font-['Plus_Jakarta_Sans'] tracking-tight hover:text-[#b6a0ff] transition-colors active:scale-95 duration-200"
-          href="#">Cafe Menu</a>
-        <a class="text-gray-400 font-medium font-['Plus_Jakarta_Sans'] tracking-tight hover:text-[#b6a0ff] transition-colors active:scale-95 duration-200"
-          href="#">Events</a>
-      </div>
-      <div class="flex items-center gap-5">
-        <button
-          class="text-[#b6a0ff] p-2 rounded-full hover:bg-[#131313] transition-colors active:scale-95 duration-200">
-          <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
-        </button>
-        <button
-          class="text-[#b6a0ff] p-2 rounded-full hover:bg-[#131313] transition-colors active:scale-95 duration-200">
-          <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-        </button>
-        <img alt="User profile avatar" class="w-10 h-10 rounded-full border border-[#b6a0ff]/20"
-          data-alt="Close-up portrait of a stylish person with soft studio lighting and a clean dark background for profile avatar"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUbsclvUXuu2qmvCsFCp0dAONEAMNsfptk82Go8VCslQ5tTtxiCYifbNVcjq7DZsdnnMt_cJWC996OpTe5BOSVg86O19eXW23jsgplnSTcQPCJD868_mT2Xs2UWECT7xeJ-MFn1adlpaO6U8MwoCvvKhuquP1kL0CZb9HnG3b1duRYxfAl_sD46CxqPaoEMloboe0eUq89xflZhrFg72SEwC-93uM3dZxKDam5sWGFgQcWg2jRxQy09yoJVqibAiZ4KKGXBiQFGJs" />
-      </div>
-    </div>
-  </nav>
+  <?php include '../includes/header.php'; ?>
   <main class="relative min-h-screen">
     <section class="relative w-full h-[614px] flex items-end overflow-hidden">
       <div class="absolute inset-0 z-0">
@@ -132,8 +104,9 @@
         </div>
       </div>
       <div class="lg:col-span-5">
-        <form action="" method="POST"
+        <form action="booking_client.php" method="POST"
           class="sticky top-28 glass-panel border border-outline-variant/15 p-8 rounded-2xl shadow-2xl flex flex-col gap-8">
+          <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
           <div class="flex flex-col gap-2">
             <h3 class="text-2xl font-bold">Check Availability</h3>
             <p class="text-on-surface-variant text-sm">Select your preferred date and crew size.</p>
