@@ -57,39 +57,6 @@
 
 ---
 
-## 📅 Daily Standups
-
-| Jour | Ce qu'on a fait | Ce qu'on fait aujourd'hui | Blockers |
-|------|----------------|--------------------------|---------|
-| Lundi 13/04 | | | |
-| Mardi 14/04 | | | |
-| Mercredi 15/04 *(Mid-retro)* | | | |
-| Jeudi 16/04 | | | |
-| Vendredi 17/04 | | | |
-
----
-
-## 🔁 Rétrospective Mi-Sprint (Mercredi 15/04)
-
-| Question | Réponse |
-|----------|---------|
-| ✅ Ce qui va bien | |
-| ⚠️ Ce qui bloque | |
-| 🔧 Ce qu'on améliore | |
-
----
-
-## 🔁 Rétrospective Finale (Vendredi 17/04)
-
-| Question | Réponse |
-|----------|---------|
-| ✅ Ce qui a bien fonctionné | |
-| ❌ Ce qui n'a pas marché | |
-| 💡 Ce qu'on ferait différemment | |
-| 🏆 Fierté de l'équipe | |
-
----
-
 ## 📦 Checklist Livrables Finaux
 
 | Livrable | Critère | Statut |
