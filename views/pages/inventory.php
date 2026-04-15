@@ -35,13 +35,13 @@
         </div>
       </div>
       <div class="flex items-center gap-4">
-        <div class="relative group">
+        <form method="GET" action="inventory.php" class="relative group">
           <span
             class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
           <input
             class="bg-surface-container-highest border-none outline-none focus:ring-2 focus:ring-primary/20 rounded-lg pl-10 pr-4 py-2.5 w-64 text-sm transition-all placeholder:text-outline"
-            placeholder="Search games by title..." type="text" />
-        </div>
+            name="query" placeholder="Search games by title..." type="text" />
+        </form>
         <button
           class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-lg border border-outline-variant/10 hover:bg-surface-bright transition-all">
           <span class="material-symbols-outlined text-xl">filter_list</span>

@@ -44,7 +44,8 @@
             </header>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div class="lg:col-span-7 space-y-8">
-                    <form class="space-y-10">
+                    <form class="space-y-10" method="POST" action="add_reservation.php">
+                        <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                         <section class="bg-surface-container-low p-8 rounded-xl">
                             <h3
                                 class="text-secondary font-headline font-bold text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
@@ -59,25 +60,15 @@
                                         Date</label>
                                     <input
                                         class="w-full bg-surface-container-highest border-0 focus:ring-2 focus:ring-primary rounded-lg p-4 text-white font-medium outline-none transition-all"
-                                        type="date" />
+                                        name="date" type="date" required />
                                 </div>
                                 <div class="space-y-2">
                                     <label
                                         class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Number
                                         of Players</label>
-                                    <div class="flex items-center gap-4 bg-surface-container-highest p-1 rounded-lg">
-                                        <button
-                                            class="w-12 h-12 flex items-center justify-center hover:bg-white/5 rounded-md text-primary"
-                                            type="button">
-                                            <span class="material-symbols-outlined" data-icon="remove">remove</span>
-                                        </button>
-                                        <span class="flex-1 text-center font-bold text-xl">4</span>
-                                        <button
-                                            class="w-12 h-12 flex items-center justify-center hover:bg-white/5 rounded-md text-primary"
-                                            type="button">
-                                            <span class="material-symbols-outlined" data-icon="add">add</span>
-                                        </button>
-                                    </div>
+                                    <input
+                                        class="w-full bg-surface-container-highest border-0 focus:ring-2 focus:ring-primary rounded-lg p-4 text-white font-medium outline-none transition-all"
+                                        name="players_count" type="number" min="1" max="20" value="4" required />
                                 </div>
                             </div>
                         </section>
@@ -87,59 +78,31 @@
                                 <span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
                                 02. Pick a Time Slot
                             </h3>
+                            <input type="hidden" name="time" id="selected_time" value="" required />
                             <div class="grid grid-cols-3 md:grid-cols-4 gap-3">
-                                <button
-                                    class="p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all"
-                                    type="button">10:00 AM</button>
-                                <button
-                                    class="p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all"
-                                    type="button">12:30 PM</button>
-                                <button
-                                    class="p-3 rounded-lg bg-primary text-on-primary text-sm font-bold shadow-[0_0_15px_rgba(182,160,255,0.4)]"
-                                    type="button">02:00 PM</button>
-                                <button
-                                    class="p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all"
-                                    type="button">04:30 PM</button>
-                                <button
-                                    class="p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all"
-                                    type="button">06:00 PM</button>
-                                <button
-                                    class="p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all"
-                                    type="button">08:30 PM</button>
-                                <button
-                                    class="p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent opacity-40 cursor-not-allowed"
-                                    type="button">10:00 PM</button>
-                                <button
-                                    class="p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all"
-                                    type="button">11:30 PM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all" data-time="10:00:00">10:00 AM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all" data-time="12:30:00">12:30 PM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-primary text-on-primary text-sm font-bold shadow-[0_0_15px_rgba(182,160,255,0.4)]" data-time="14:00:00">02:00 PM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all" data-time="16:30:00">04:30 PM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all" data-time="18:00:00">06:00 PM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all" data-time="20:30:00">08:30 PM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent opacity-40 cursor-not-allowed" disabled>10:00 PM</button>
+                                <button type="button" class="time-slot p-3 rounded-lg bg-surface-container-highest text-sm font-medium border-2 border-transparent hover:border-primary/50 transition-all" data-time="23:30:00">11:30 PM</button>
                             </div>
                         </section>
                         <section class="bg-surface-container-low p-8 rounded-xl">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3
-                                    class="text-secondary font-headline font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-sm" data-icon="casino">casino</span>
-                                    03. Preferred Game
-                                </h3>
-                                <span
-                                    class="text-[10px] bg-white/5 px-2 py-1 rounded text-on-surface-variant uppercase tracking-tighter">Optional</span>
-                            </div>
-                            <div class="relative">
-                                <span
-                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
-                                    data-icon="search">search</span>
-                                <input
-                                    class="w-full bg-surface-container-highest border-0 focus:ring-2 focus:ring-primary rounded-lg py-4 pl-12 pr-4 text-white font-medium outline-none transition-all placeholder:text-on-surface-variant/50"
-                                    placeholder="Search our vault (e.g. Catan, Terraforming Mars...)" type="text" />
-                            </div>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1 bg-primary-container/20 text-primary text-xs font-medium rounded-full border border-primary/20">Scythe</span>
-                                <span
-                                    class="px-3 py-1 bg-secondary-container/20 text-secondary text-xs font-medium rounded-full border border-secondary/20">Catan</span>
-                                <span
-                                    class="px-3 py-1 bg-tertiary-container/20 text-tertiary text-xs font-medium rounded-full border border-tertiary/20">Ticket
-                                    to Ride</span>
+                            <h3
+                                class="text-secondary font-headline font-bold text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm" data-icon="phone">phone</span>
+                                04. Contact Information
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Phone Number</label>
+                                    <input
+                                        class="w-full bg-surface-container-highest border-0 focus:ring-2 focus:ring-primary rounded-lg p-4 text-white font-medium outline-none transition-all"
+                                        name="client_phone" type="tel" placeholder="+33 6 12 34 56 78" required pattern="[0-9+\s\-()]{8,20}" />
+                                </div>
                             </div>
                         </section>
                         <button
@@ -153,6 +116,25 @@
             </div>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeSlots = document.querySelectorAll('.time-slot');
+            const selectedTimeInput = document.getElementById('selected_time');
+            
+            timeSlots.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    timeSlots.forEach(btn => {
+                        btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-[0_0_15px_rgba(182,160,255,0.4)]');
+                        btn.classList.add('bg-surface-container-highest');
+                    });
+                    this.classList.remove('bg-surface-container-highest');
+                    this.classList.add('bg-primary', 'text-on-primary', 'shadow-[0_0_15px_rgba(182,160,255,0.4)]');
+                    selectedTimeInput.value = this.getAttribute('data-time');
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

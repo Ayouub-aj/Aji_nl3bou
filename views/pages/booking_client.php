@@ -104,8 +104,9 @@
         </div>
       </div>
       <div class="lg:col-span-5">
-        <form action="" method="POST"
+        <form action="booking_client.php" method="POST"
           class="sticky top-28 glass-panel border border-outline-variant/15 p-8 rounded-2xl shadow-2xl flex flex-col gap-8">
+          <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
           <div class="flex flex-col gap-2">
             <h3 class="text-2xl font-bold">Check Availability</h3>
             <p class="text-on-surface-variant text-sm">Select your preferred date and crew size.</p>

@@ -39,7 +39,8 @@
                 </div>
                 <!-- Admin/Client Toggle (Asymmetric Tab Design) -->
                 <!-- Form -->
-                <form class="space-y-6 mt-8">
+                <form class="space-y-6 mt-8" method="POST" action="login.php">
+                    <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                     <div class="space-y-4">
                         <!-- Username -->
                         <div class="space-y-2">
@@ -50,7 +51,7 @@
                                     class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
                                 <input
                                     class="w-full pl-12 pr-4 py-3.5 bg-surface-container-highest border-none rounded-lg focus:ring-2 focus:ring-primary text-on-surface placeholder:text-zinc-600 transition-all outline-none"
-                                    id="identifier" placeholder="Enter your credentials" type="text" />
+                                    id="identifier" name="username" placeholder="Enter your credentials" type="text" required />
                                 <div
                                     class="absolute inset-0 rounded-lg border border-white/5 pointer-events-none group-hover:border-white/10 transition-colors">
                                 </div>
@@ -69,7 +70,7 @@
                                     class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">lock</span>
                                 <input
                                     class="w-full pl-12 pr-4 py-3.5 bg-surface-container-highest border-none rounded-lg focus:ring-2 focus:ring-primary text-on-surface placeholder:text-zinc-600 transition-all outline-none"
-                                    id="password" placeholder="••••••••" type="password" />
+                                    id="password" name="password" placeholder="••••••••" type="password" required />
                                 <div
                                     class="absolute inset-0 rounded-lg border border-white/5 pointer-events-none group-hover:border-white/10 transition-colors">
                                 </div>

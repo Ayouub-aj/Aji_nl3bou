@@ -51,7 +51,8 @@
             </div>
             <!-- Central Card (Glassmorphism) -->
             <div class="glass-card rounded-xl p-8 border border-outline-variant/15 shadow-2xl">
-                <form class="space-y-6">
+                <form class="space-y-6" method="POST" action="add_password.php">
+                    <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                     <!-- New Password Field -->
                     <div class="space-y-2">
                         <label class="font-label text-xs uppercase tracking-widest text-on-surface-variant ml-1">New
@@ -59,7 +60,7 @@
                         <div class="relative">
                             <input
                                 class="w-full bg-surface-container-highest border border-outline-variant/15 rounded-lg px-4 py-3 text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                                placeholder="••••••••" type="password" />
+                                name="password" placeholder="••••••••" type="password" required />
                             <span
                                 class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant cursor-pointer"
                                 data-icon="visibility">visibility</span>
@@ -101,7 +102,7 @@
                         <div class="relative">
                             <input
                                 class="w-full bg-surface-container-highest border border-outline-variant/15 rounded-lg px-4 py-3 text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                                placeholder="••••••••" type="password" />
+                                name="confirm_password" placeholder="••••••••" type="password" required />
                         </div>
                     </div>
                     <!-- Action Button -->

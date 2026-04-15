@@ -32,19 +32,19 @@
                 <h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter mb-8 text-on-surface">
                     Find Your Next <span class="text-primary">Adventure</span>
                 </h1>
-                <div
+                <form method="GET" action="home.php"
                     class="flex items-center bg-surface-container-highest/80 backdrop-blur-md rounded-xl p-2 border border-outline-variant/15 shadow-2xl">
                     <div class="flex-1 flex items-center px-4">
                         <span class="material-symbols-outlined text-primary">search</span>
                         <input
                             class="w-full bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant font-medium py-3 px-3"
-                            placeholder="Search strategy, family, or specific titles..." type="text" />
+                            name="query" placeholder="Search strategy, family, or specific titles..." type="text" />
                     </div>
                     <button
                         class="bg-gradient-to-b from-primary to-primary-dim text-on-primary font-bold px-8 py-3 rounded-lg active:scale-95 transition-all shadow-[0_0_20px_rgba(182,160,255,0.3)]">
                         Explore Now
                     </button>
-                </div>
+                </form>
             </div>
         </section>
         <section class="max-w-[1440px] mx-auto px-8 py-12">

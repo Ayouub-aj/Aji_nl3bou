@@ -50,13 +50,13 @@
                 <button
                     class="px-4 py-2 rounded-full text-sm font-semibold bg-surface-container-high text-on-surface-variant hover:bg-surface-bright transition-colors border border-outline-variant/10">Canceled</button>
             </div>
-            <div class="relative min-w-[300px]">
+            <form method="GET" action="reservation_admin.php" class="relative min-w-[300px]">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
                     data-icon="search">search</span>
                 <input
                     class="w-full pl-10 pr-4 py-2.5 bg-surface-container-highest border border-outline-variant/15 rounded-xl focus:ring-2 focus:ring-primary focus:outline-none transition-all placeholder:text-on-surface-variant/50"
-                    placeholder="Search guest or game..." type="text" />
-            </div>
+                    name="query" placeholder="Search guest or game..." type="text" />
+            </form>
         </div>
         <div class="bg-surface-container-low rounded-2xl overflow-hidden">
             <div class="overflow-x-auto">
