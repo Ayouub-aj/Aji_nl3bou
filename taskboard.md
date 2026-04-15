@@ -61,9 +61,9 @@
 
 | Jour | Ce qu'on a fait | Ce qu'on fait aujourd'hui | Blockers |
 |------|----------------|--------------------------|---------|
-| Lundi 13/04 | | | |
-| Mardi 14/04 | | | |
-| Mercredi 15/04 *(Mid-retro)* | | | |
+| Lundi 13/04 |project dicussion, github repo and jira codespace | readme.md docummentation, erDiagram and classes diagram | nothing |
+| Mardi 14/04 |ui| sql schema and seeding into database (phpmyadmin) | nothing |
+| Mercredi 15/04 *(Mid-retro)* |code reviews and merge into main | testing folder, composer configuration | nothing|
 | Jeudi 16/04 | | | |
 | Vendredi 17/04 | | | |
 
