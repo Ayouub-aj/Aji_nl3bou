@@ -7,45 +7,19 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>The Curated Playroom | Game Catalogue</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="tailwind-config.js"></script>
+    <script src="../style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" />
-    <script defer="" src="main.js"></script>
+    <link href="../style/style.css" rel="stylesheet" />
+    <script defer="" src="../style/main.js"></script>
 </head>
 
 <body class="bg-surface font-body text-on-surface selection:bg-primary/30">
-    <header class="w-full top-0 sticky z-50 bg-[#0e0e0e] font-['Plus_Jakarta_Sans'] tracking-tight shadow-none">
-        <div class="flex justify-between items-center px-8 py-4 w-full max-w-full mx-auto">
-            <div class="text-2xl font-bold tracking-tighter text-[#b6a0ff]">The Curated Playroom</div>
-            <nav class="hidden md:flex items-center gap-8">
-                <a class="text-[#b6a0ff] font-bold border-b-2 border-[#b6a0ff] pb-1 transition-colors"
-                    href="home.php">Explore</a>
-                <a class="text-gray-400 font-medium hover:text-[#b6a0ff] transition-colors" href="#">Cafe Menu</a>
-                <a class="text-gray-400 font-medium hover:text-[#b6a0ff] transition-colors" href="#">Events</a>
-            </nav>
-            <div class="flex items-center gap-6">
-                <div class="flex items-center gap-4">
-                    <button class="text-[#b6a0ff] hover:text-white transition-colors active:scale-95 duration-200">
-                        <span class="material-symbols-outlined">shopping_bag</span>
-                    </button>
-                    <button class="text-[#b6a0ff] hover:text-white transition-colors active:scale-95 duration-200">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </button>
-                </div>
-                <div
-                    class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-[#b6a0ff]/20">
-                    <img alt="User profile avatar"
-                        data-alt="Close up portrait of a friendly professional man with a clean beard and smiling eyes in soft studio lighting"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp5W2keEkC2JNW1XUWgsFoWM73LYLeVgUxCaquB1zCNQMaoNIYYAh5fmTrtAQqRm7UR1qC6pXh1NR0UcQCjSfvTwdVHO1RxHe-lqwa8g5AfNRgII22r3KEgAU8hMC4WKc4N3lfz3lrkujleaKq2CTHmswDO4peofLC5yW21R8d4QtB4qTVqUlaVtkIjpNl5x8D2xgV6qHdSSs9oEHFgX8RhLWJPC1U1pPvGSvlogFedEZ3n9IlSpiMdNZYiw13PU_RvjPBTWCpNAE" />
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php include '../includes/header.php'; ?>
     <main class="relative min-h-screen">
         <section class="relative w-full h-[400px] flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 z-0">
@@ -58,19 +32,19 @@
                 <h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter mb-8 text-on-surface">
                     Find Your Next <span class="text-primary">Adventure</span>
                 </h1>
-                <div
+                <form method="GET" action="home.php"
                     class="flex items-center bg-surface-container-highest/80 backdrop-blur-md rounded-xl p-2 border border-outline-variant/15 shadow-2xl">
                     <div class="flex-1 flex items-center px-4">
                         <span class="material-symbols-outlined text-primary">search</span>
                         <input
                             class="w-full bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant font-medium py-3 px-3"
-                            placeholder="Search strategy, family, or specific titles..." type="text" />
+                            name="query" placeholder="Search strategy, family, or specific titles..." type="text" />
                     </div>
                     <button
                         class="bg-gradient-to-b from-primary to-primary-dim text-on-primary font-bold px-8 py-3 rounded-lg active:scale-95 transition-all shadow-[0_0_20px_rgba(182,160,255,0.3)]">
                         Explore Now
                     </button>
-                </div>
+                </form>
             </div>
         </section>
         <section class="max-w-[1440px] mx-auto px-8 py-12">
@@ -188,7 +162,7 @@
                                 </div>
                                 <button
                                     class="w-full py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    View Details
+                                    Reservation 
                                 </button>
                             </div>
                         </div>
@@ -227,7 +201,7 @@
                                 </div>
                                 <button
                                     class="w-full py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    View Details
+                                    Reservation 
                                 </button>
                             </div>
                         </div>
@@ -265,7 +239,7 @@
                                 </div>
                                 <button
                                     class="w-full py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    View Details
+                                    Reservation 
                                 </button>
                             </div>
                         </div>
@@ -303,7 +277,7 @@
                                 </div>
                                 <a href="booking_client.php"
                                     class="w-full block text-center py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    View Details
+                                    Reservation 
                                 </a>
                             </div>
                         </div>
@@ -341,7 +315,7 @@
                                 </div>
                                 <a href="booking_client.php"
                                     class="w-full block text-center py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    View Details
+                                    Reservation 
                                 </a>
                             </div>
                         </div>
@@ -379,7 +353,7 @@
                                 </div>
                                 <a href="booking_client.php"
                                     class="w-full block text-center py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    View Details
+                                    Reservation 
                                 </a>
                             </div>
                         </div>
@@ -409,18 +383,7 @@
             </div>
         </section>
     </main>
-    <footer class="w-full py-12 border-t border-[#b6a0ff]/10 bg-[#0e0e0e] font-['Inter'] text-sm">
-        <div class="flex flex-col items-center justify-center gap-6 w-full">
-            <div class="text-lg font-bold text-[#b6a0ff]">The Curated Playroom</div>
-            <div class="flex gap-8">
-                <a class="text-gray-500 hover:text-white transition-colors" href="#">Terms</a>
-                <a class="text-gray-500 hover:text-white transition-colors" href="#">Privacy</a>
-                <a class="text-gray-500 hover:text-white transition-colors" href="#">Careers</a>
-                <a class="text-gray-500 hover:text-white transition-colors" href="#">Contact</a>
-            </div>
-            <div class="text-gray-500">© 2024 The Curated Playroom. Roll with intention.</div>
-        </div>
-    </footer>
+    <?php include '../includes/footer.php'; ?>
     <button
         class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-b from-primary to-primary-dim text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50 active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">add</span>
