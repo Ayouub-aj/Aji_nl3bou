@@ -54,10 +54,10 @@ require_once __DIR__ . '/../../config/init.php';
                     <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Active Sessions
                     </p>
                     <div class="flex items-end justify-between">
-                        <span class="text-4xl font-black font-headline">12</span>
+                        <span class="text-4xl font-black font-headline"><?php echo $data['activeSessions'] ?? 0; ?></span>
                         <span class="text-tertiary text-xs font-bold flex items-center gap-1">
                             <span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
-                            +3
+                            Live
                         </span>
                     </div>
                 </div>
@@ -65,28 +65,25 @@ require_once __DIR__ . '/../../config/init.php';
                     <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Pending
                         Reservations</p>
                     <div class="flex items-end justify-between">
-                        <span class="text-4xl font-black font-headline">08</span>
-                        <span class="text-secondary text-xs font-bold">Upcoming 2h</span>
+                        <span class="text-4xl font-black font-headline"><?php echo $data['pendingCount'] ?? 0; ?></span>
+                        <span class="text-secondary text-xs font-bold">Awaiting</span>
                     </div>
                 </div>
                 <div class="bg-surface-container-high rounded-xl p-6 border-l-4 border-tertiary">
-                    <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Occupied Tables
+                    <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Today's Reservations
                     </p>
                     <div class="flex items-end justify-between">
-                        <span class="text-4xl font-black font-headline">18<span
-                                class="text-lg text-gray-600 font-medium">/24</span></span>
-                        <span class="text-on-surface-variant text-xs font-bold">75% Load</span>
+                        <span class="text-4xl font-black font-headline"><?php echo $data['totalToday'] ?? 0; ?><span
+                                class="text-lg text-gray-600 font-medium">/<?php echo $data['totalTables'] ?? 0; ?></span></span>
+                        <span class="text-on-surface-variant text-xs font-bold">Tables</span>
                     </div>
                 </div>
                 <div class="bg-surface-container-high rounded-xl p-6 border-l-4 border-primary-dim">
-                    <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Today's Revenue
+                    <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Total Games
                     </p>
                     <div class="flex items-end justify-between">
-                        <span class="text-4xl font-black font-headline">$1.2k</span>
-                        <span class="text-tertiary text-xs font-bold flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
-                            14%
-                        </span>
+                        <span class="text-4xl font-black font-headline"><?php echo $data['totalGames'] ?? 0; ?></span>
+                        <span class="text-on-surface-variant text-xs font-bold"><?php echo $data['availableGames'] ?? 0; ?> Available</span>
                     </div>
                 </div>
             </div>
@@ -97,51 +94,64 @@ require_once __DIR__ . '/../../config/init.php';
                     <span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
                     <h2 class="text-2xl font-extrabold font-headline tracking-tight">Live Sessions</h2>
                 </div>
-                <button class="text-sm font-bold text-primary hover:underline transition-all">View All Tables</button>
+                <a href="/dashboard/Aji_nl3bou/tables" class="text-sm font-bold text-primary hover:underline transition-all">View All Tables</a>
             </div>
+            <?php $activeSessions = $data['activeSessionsList'] ?? []; ?>
+            <?php if (empty($activeSessions)): ?>
+            <div class="bg-surface-container rounded-xl p-8 text-center">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-4">sports_esports</span>
+                <p class="text-on-surface-variant">No active sessions at the moment.</p>
+            </div>
+            <?php else: ?>
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                <div
-                    class="group relative bg-surface-container rounded-xl overflow-hidden shadow-xl hover:shadow-secondary/5 transition-all">
+                <?php foreach ($activeSessions as $session): ?>
+                <?php
+                    $startTime = strtotime($session['start_time']);
+                    $elapsed = time() - $startTime;
+                    $minutes = floor($elapsed / 60);
+                    $seconds = $elapsed % 60;
+                    $elapsedStr = sprintf('%02d:%02d', $minutes, $seconds);
+                ?>
+                <div class="group relative bg-surface-container rounded-xl overflow-hidden shadow-xl hover:shadow-secondary/5 transition-all">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
-                                <span
-                                    class="bg-secondary/20 text-secondary text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded">Family</span>
-                                <h3 class="text-xl font-bold font-headline mt-2 uppercase">Table 12</h3>
+                                <span class="bg-secondary/20 text-secondary text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded">Active</span>
+                                <h3 class="text-xl font-bold font-headline mt-2 uppercase"><?php echo htmlspecialchars($session['table_name'] ?? 'Table'); ?></h3>
                             </div>
                             <div class="text-right">
-                                <p class="text-2xl font-black text-secondary-fixed-dim">00:24</p>
+                                <p class="text-2xl font-black text-secondary-fixed-dim"><?php echo $elapsedStr; ?></p>
                                 <p class="text-[10px] text-on-surface-variant font-bold uppercase">Time Elapsed</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 mb-6">
-                            <img alt="Ticket to Ride" class="w-16 h-16 rounded-lg object-cover"
-                                data-alt="close up of colorful train pieces on a Ticket to Ride board game with warm lighting"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW1IM1usNRo5gpMYDDzqgjltY514yznzpF211B7XUnwTCUHhzWIFeK3QpcwA6XxWM2-FKNGWopfacrUD42-9GJ-yX2V-WG2U-7KylE42qpjoEsnLTclpppVKFCHlOnzLYVMsgTQgUqxOXG_7VtMebiMm-srH01xuAlnelKF-U2PbxRsyG-sNYXMvXs0pqtsVBEv7Vi-rAVl7I-tqe1a61UBuZGPIaeMDoJMMZUgCaVW4k6BZBqZqY67be_CrFOK1VjrdwDqTwRZec" />
-                            <div>
-                                <p class="font-bold text-on-surface">Ticket to Ride</p>
-                                <p class="text-xs text-on-surface-variant">3 Players • Casual</p>
+                            <?php if (!empty($session['game_title'])): ?>
+                            <div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary">sports_esports</span>
                             </div>
+                            <div>
+                                <p class="font-bold text-on-surface"><?php echo htmlspecialchars($session['game_title']); ?></p>
+                                <p class="text-xs text-on-surface-variant"><?php echo $session['players_count']; ?> Players</p>
+                            </div>
+                            <?php else: ?>
+                            <div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-surface-variant">group</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-on-surface"><?php echo htmlspecialchars($session['client_name'] ?? 'Walk-in'); ?></p>
+                                <p class="text-xs text-on-surface-variant"><?php echo $session['players_count']; ?> Players</p>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="bg-surface-container-low px-6 py-4 flex justify-between items-center">
-                        <div class="flex -space-x-2">
-                            <img alt="Player 1" class="w-8 h-8 rounded-full border-2 border-surface-container"
-                                data-alt="vibrant 3d character avatar of a young girl"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaR1S7K1IgJ8tpeqAK9SbAU6w6V6Xez2DqFi7yLk6wRxHiQE65v4uXg7lLnwK3EdIcSdDIDtDFRAaE1vcDAs-m2-msdHL7NbCH9-lXrfsIHSuGJBK7az_OX8754CIJR4rGVJnWuczxD042bRDnR5_ZxBDU1OKcc57hVgTIzhbqyE9bghqh5PZphSVAYbEzB9gSn6S5tcnZFDL0GbicZTD1RXjZqD-MfhmXnrdWZ94SycMg31hA_tw1FAL7s_UpB26PHlAor8Ts-0w" />
-                            <img alt="Player 2" class="w-8 h-8 rounded-full border-2 border-surface-container"
-                                data-alt="vibrant 3d character avatar of a young woman"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVi0BfkFUycaO4QrZOCXi6b2n2yzvRTksh6Ihaw_ggn8uaVxzcXJ9MGXnG4f3KvshMDdQNLO4l4uOxSkRe-jwXmo9oxrfk-DF4uH5vl53mRS36ppcg_ZFAOWhg0wW_p1dD_zA_AQIZduqgfw-Tvqp0TyzrTsfcxqAvYikvunNrlVtYVSQQ_k_KOG3rHYroPopyRKX1JPWeCZW9y6MYwhKOgTqStFw-0QDiy4_XyfAKuiB_sC1I7WH5dgFk1MxDPd53dKbLzQlYCVs" />
-                            <img alt="Player 3" class="w-8 h-8 rounded-full border-2 border-surface-container"
-                                data-alt="vibrant 3d character avatar of a man with beard"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo52AbETG3kwdQKYA7h_3dptyKt9t3NLO15fX4u6MzRnW0RcKAd5GwsAkIGeyKRjeizKHas4OpQ9qMzW_2ecfrSFFHd_kNU5ntbvOHl8HjwpCes0P4v9nKxXfIQWMHtR8AFPBX3QsEXTvnN_jeQTnOdGMwn35kLFuXlNpJQpgUKbGSdOMr_3cQUNMljucK41ZptXtCo7bBEP1f4uCnSn6ajYJrOuA0W_sMctnH2MEIzfldpzYLEN6FsPLJlTlIL7318hUI1pn7myY" />
-                        </div>
-                        <button
-                            class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors"
-                            data-icon="more_vert">more_vert</button>
+                        <span class="text-xs text-on-surface-variant">Started <?php echo date('H:i', $startTime); ?></span>
+                        <a href="/dashboard/Aji_nl3bou/sessions/end/<?php echo $session['id']; ?>" class="text-sm font-bold text-error hover:underline">End Session</a>
                     </div>
-                </div> 
+                </div>
+                <?php endforeach; ?>
             </div>
+            <?php endif; ?>
         </section>
         <section class="px-8 mt-12 mb-12">
             <div class="flex items-center justify-between mb-6">

@@ -152,6 +152,9 @@ class RouterController
         
         // Get available tables as JSON
         $this->get('/api/tables/available', 'ReservationController', 'getAvailableTables');
+        
+        // Session management
+        $this->get('/sessions/end/{id}', 'SessionsController', 'endSession');
     }
 
     /**
@@ -280,9 +283,9 @@ class RouterController
         if (class_exists($class)) {
             $controller = new $class();
             
-            // If we have parameters, pass them to the action
+            // If we have parameters, pass them as positional arguments
             if (!empty($params)) {
-                $controller->$action(...$params);
+                $controller->$action(...array_values($params));
             } else {
                 $controller->$action();
             }
