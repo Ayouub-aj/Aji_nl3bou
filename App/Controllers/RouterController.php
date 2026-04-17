@@ -280,9 +280,9 @@ class RouterController
         if (class_exists($class)) {
             $controller = new $class();
             
-            // If we have parameters, pass them as positional arguments
+            // If we have parameters, pass them to the action
             if (!empty($params)) {
-                $controller->$action(...array_values($params));
+                $controller->$action(...$params);
             } else {
                 $controller->$action();
             }
