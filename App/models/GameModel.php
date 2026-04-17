@@ -109,6 +109,55 @@ class GameModel
     }
 
     /**
+     * Get games with search and filter options
+     * 
+     * @param string|null $search Search term (searches title and description)
+     * @param string|null $category Filter by category
+     * @param string|null $difficulty Filter by difficulty
+     * @param int|null $players Filter by minimum players
+     * @return array Filtered games
+     */
+    public function getFiltered($search = null, $category = null, $difficulty = null, $players = null)
+    {
+        $sql = "SELECT * FROM games WHERE 1=1";
+        $params = [];
+        
+        // Only show available games
+        $sql .= " AND status = 'available'";
+        
+        // Search filter
+        if (!empty($search)) {
+            $sql .= " AND (title LIKE ? OR description LIKE ?)";
+            $params[] = '%' . $search . '%';
+            $params[] = '%' . $search . '%';
+        }
+        
+        // Category filter
+        if (!empty($category) && $category !== 'all') {
+            $sql .= " AND category = ?";
+            $params[] = $category;
+        }
+        
+        // Difficulty filter
+        if (!empty($difficulty) && $difficulty !== 'all') {
+            $sql .= " AND difficulty = ?";
+            $params[] = $difficulty;
+        }
+        
+        // Players filter (min_players <= requested players)
+        if (!empty($players) && $players > 0) {
+            $sql .= " AND min_players <= ?";
+            $params[] = (int) $players;
+        }
+        
+        $sql .= " ORDER BY title ASC";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Create a new game
      * 
      * @param array $data Game data from the form

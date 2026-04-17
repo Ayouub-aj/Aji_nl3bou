@@ -1,9 +1,10 @@
 <?php
 require_once __DIR__ . '/../../config/init.php';
-use App\Models\GameModel;
 
-$gameModel = new GameModel();
-$games = $gameModel->getAvailableGames();
+// Games data is passed from controller
+$games = $data['games'] ?? [];
+$categories = $data['categories'] ?? [];
+$filters = $data['filters'] ?? [];
 ?>
 <!DOCTYPE html>
 
@@ -38,17 +39,17 @@ $games = $gameModel->getAvailableGames();
                 <h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter mb-8 text-on-surface">
                     Find Your Next <span class="text-primary">Adventure</span>
                 </h1>
-                <form method="GET" action="home.php"
+                <form method="GET" action="<?= URL_ROOT ?>/"
                     class="flex items-center bg-surface-container-highest/80 backdrop-blur-md rounded-xl p-2 border border-outline-variant/15 shadow-2xl">
                     <div class="flex-1 flex items-center px-4">
                         <span class="material-symbols-outlined text-primary">search</span>
                         <input
                             class="w-full bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant font-medium py-3 px-3"
-                            name="query" placeholder="Search strategy, family, or specific titles..." type="text" />
+                            name="search" placeholder="Search games..." type="text" value="<?= htmlspecialchars($filters['search'] ?? '') ?>" />
                     </div>
                     <button
                         class="bg-gradient-to-b from-primary to-primary-dim text-on-primary font-bold px-8 py-3 rounded-lg active:scale-95 transition-all shadow-[0_0_20px_rgba(182,160,255,0.3)]">
-                        Explore Now
+                        Search
                     </button>
                 </form>
             </div>
@@ -56,83 +57,124 @@ $games = $gameModel->getAvailableGames();
         <section class="max-w-[1440px] mx-auto px-8 py-12">
             <div class="flex flex-col lg:flex-row gap-8">
                 <aside class="w-full lg:w-72 flex-shrink-0 space-y-8">
-                    <div>
-                        <h3 class="font-headline text-lg font-bold mb-4 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary text-sm">filter_list</span>
-                            Categories
-                        </h3>
-                        <div class="flex flex-wrap lg:flex-col gap-2">
-                            <button
-                                class="flex items-center justify-between px-4 py-2 bg-primary/10 text-primary rounded-lg font-medium border border-primary/20">
-                                Strategy <span class="text-xs opacity-60">24</span>
-                            </button>
-                            <button
-                                class="flex items-center justify-between px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors">
-                                Ambiance <span class="text-xs opacity-40">12</span>
-                            </button>
-                            <button
-                                class="flex items-center justify-between px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors">
-                                Family <span class="text-xs opacity-40">48</span>
-                            </button>
-                            <button
-                                class="flex items-center justify-between px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors">
-                                Experts <span class="text-xs opacity-40">09</span>
-                            </button>
+                    <form method="GET" action="<?= URL_ROOT ?>/" class="space-y-6">
+                        <input type="hidden" name="search" value="<?= htmlspecialchars($filters['search'] ?? '') ?>" />
+                        
+                        <!-- Categories Filter -->
+                        <div>
+                            <h3 class="font-headline text-lg font-bold mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-sm">filter_list</span>
+                                Categories
+                            </h3>
+                            <div class="flex flex-wrap lg:flex-col gap-2">
+                                <?php
+                                $categoryQuery = '?search=' . urlencode($filters['search'] ?? '');
+                                if (!empty($filters['difficulty'])) $categoryQuery .= '&difficulty=' . urlencode($filters['difficulty']);
+                                if (!empty($filters['players'])) $categoryQuery .= '&players=' . urlencode($filters['players']);
+                                ?>
+                                <a href="<?= URL_ROOT ?>/<?= $categoryQuery ?>"
+                                    class="flex items-center justify-between px-4 py-2 rounded-lg font-medium transition-colors <?= empty($filters['category']) || $filters['category'] === 'all' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-on-surface-variant hover:bg-surface-container-high' ?>">
+                                    All Games
+                                </a>
+                                <?php foreach ($categories as $cat): ?>
+                                <?php
+                                $catQuery = '?search=' . urlencode($filters['search'] ?? '') . '&category=' . urlencode($cat);
+                                if (!empty($filters['difficulty'])) $catQuery .= '&difficulty=' . urlencode($filters['difficulty']);
+                                if (!empty($filters['players'])) $catQuery .= '&players=' . urlencode($filters['players']);
+                                ?>
+                                <a href="<?= URL_ROOT ?>/<?= $catQuery ?>"
+                                    class="flex items-center justify-between px-4 py-2 rounded-lg font-medium transition-colors <?= ($filters['category'] ?? '') === $cat ? 'bg-primary/10 text-primary border border-primary/20' : 'text-on-surface-variant hover:bg-surface-container-high' ?>">
+                                    <?= htmlspecialchars($cat) ?>
+                                </a>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <h3 class="font-headline text-lg font-bold mb-4">Players</h3>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button
-                                class="p-2 text-center rounded-lg bg-surface-container border border-outline-variant/15 text-sm font-bold hover:border-primary/50 transition-all">1-2</button>
-                            <button
-                                class="p-2 text-center rounded-lg bg-surface-container border border-outline-variant/15 text-sm font-bold hover:border-primary/50 transition-all">3-4</button>
-                            <button
-                                class="p-2 text-center rounded-lg bg-surface-container border border-outline-variant/15 text-sm font-bold hover:border-primary/50 transition-all">5+</button>
+                        
+                        <!-- Difficulty Filter -->
+                        <div>
+                            <h3 class="font-headline text-lg font-bold mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-sm">tune</span>
+                                Difficulty
+                            </h3>
+                            <div class="flex flex-wrap lg:flex-col gap-2">
+                                <?php
+                                $baseDiffQuery = '?search=' . urlencode($filters['search'] ?? '') . '&category=' . urlencode($filters['category'] ?? '');
+                                if (!empty($filters['players'])) $baseDiffQuery .= '&players=' . urlencode($filters['players']);
+                                ?>
+                                <a href="<?= URL_ROOT ?>/<?= $baseDiffQuery ?>"
+                                    class="flex items-center justify-between px-4 py-2 rounded-lg font-medium transition-colors <?= empty($filters['difficulty']) || $filters['difficulty'] === 'all' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-on-surface-variant hover:bg-surface-container-high' ?>">
+                                    Any
+                                </a>
+                                <?php foreach (['Facile' => 'Easy', 'Moyen' => 'Medium', 'Difficile' => 'Hard'] as $diff => $label): ?>
+                                <?php
+                                $diffQuery = '?search=' . urlencode($filters['search'] ?? '') . '&category=' . urlencode($filters['category'] ?? '') . '&difficulty=' . urlencode($diff);
+                                if (!empty($filters['players'])) $diffQuery .= '&players=' . urlencode($filters['players']);
+                                ?>
+                                <a href="<?= URL_ROOT ?>/<?= $diffQuery ?>"
+                                    class="flex items-center justify-between px-4 py-2 rounded-lg font-medium transition-colors <?= ($filters['difficulty'] ?? '') === $diff ? 'bg-primary/10 text-primary border border-primary/20' : 'text-on-surface-variant hover:bg-surface-container-high' ?>">
+                                    <?= $label ?>
+                                </a>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <h3 class="font-headline text-lg font-bold mb-4">Duration</h3>
-                        <div class="space-y-3">
-                            <label class="flex items-center gap-3 cursor-pointer group">
-                                <div
-                                    class="w-5 h-5 rounded border border-outline-variant/30 group-hover:border-primary transition-colors flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-[14px] text-primary hidden">check</span>
-                                </div>
-                                <span
-                                    class="text-on-surface-variant group-hover:text-on-surface transition-colors">Short
-                                    (&lt; 30m)</span>
-                            </label>
-                            <label class="flex items-center gap-3 cursor-pointer group">
-                                <div
-                                    class="w-5 h-5 rounded border border-primary bg-primary/20 flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-[14px] text-primary">check</span>
-                                </div>
-                                <span class="text-on-surface">Standard (30-90m)</span>
-                            </label>
-                            <label class="flex items-center gap-3 cursor-pointer group">
-                                <div
-                                    class="w-5 h-5 rounded border border-outline-variant/30 group-hover:border-primary transition-colors flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-[14px] text-primary hidden">check</span>
-                                </div>
-                                <span class="text-on-surface-variant group-hover:text-on-surface transition-colors">Long
-                                     (90m+)</span>
-                            </label>
+                        
+                        <!-- Players Filter -->
+                        <div>
+                            <h3 class="font-headline text-lg font-bold mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-sm">group</span>
+                                Players
+                            </h3>
+                            <div class="flex flex-wrap lg:flex-col gap-2">
+                                <?php
+                                $basePlayerQuery = '?search=' . urlencode($filters['search'] ?? '') . '&category=' . urlencode($filters['category'] ?? '');
+                                if (!empty($filters['difficulty'])) $basePlayerQuery .= '&difficulty=' . urlencode($filters['difficulty']);
+                                ?>
+                                <a href="<?= URL_ROOT ?>/<?= $basePlayerQuery ?>"
+                                    class="flex items-center justify-between px-4 py-2 rounded-lg font-medium transition-colors <?= empty($filters['players']) ? 'bg-primary/10 text-primary border border-primary/20' : 'text-on-surface-variant hover:bg-surface-container-high' ?>">
+                                    Any
+                                </a>
+                                <?php foreach (['2' => '2 Players', '4' => '4 Players', '6' => '6+ Players'] as $players => $label): ?>
+                                <?php
+                                $playerQuery = '?search=' . urlencode($filters['search'] ?? '') . '&category=' . urlencode($filters['category'] ?? '') . '&players=' . urlencode($players);
+                                if (!empty($filters['difficulty'])) $playerQuery .= '&difficulty=' . urlencode($filters['difficulty']);
+                                ?>
+                                <a href="<?= URL_ROOT ?>/<?= $playerQuery ?>"
+                                    class="flex items-center justify-between px-4 py-2 rounded-lg font-medium transition-colors <?= ($filters['players'] ?? '') === $players ? 'bg-primary/10 text-primary border border-primary/20' : 'text-on-surface-variant hover:bg-surface-container-high' ?>">
+                                    <?= $label ?>
+                                </a>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
+                        
+                        <?php if ($filters['search'] || $filters['category'] || $filters['difficulty'] || $filters['players']): ?>
+                        <a href="<?= URL_ROOT ?>/" class="block text-center py-2 px-4 rounded-lg border border-error/30 text-error hover:bg-error/10 transition-colors">
+                            Clear Filters
+                        </a>
+                        <?php endif; ?>
+                    </form>
                 </aside>
                 <div class="flex-1">
                     <div class="flex justify-between items-center mb-8">
-                        <p class="text-on-surface-variant font-medium">Showing <span class="text-on-surface">248
-                                Games</span></p>
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm text-on-surface-variant">Sort by:</span>
-                            <button
-                                class="flex items-center gap-1 font-bold text-sm bg-surface-container px-3 py-1.5 rounded-lg border border-outline-variant/10">
-                                Most Popular <span class="material-symbols-outlined text-sm">expand_more</span>
-                            </button>
-                        </div>
+                        <p class="text-on-surface-variant font-medium">
+                            Showing <span class="text-on-surface"><?= count($games) ?></span> Games
+                            <?php if ($filters['search']): ?>
+                                for "<span class="text-primary"><?= htmlspecialchars($filters['search']) ?></span>"
+                            <?php endif; ?>
+                            <?php if ($filters['category'] && $filters['category'] !== 'all'): ?>
+                                in <span class="text-primary"><?= htmlspecialchars($filters['category']) ?></span>
+                            <?php endif; ?>
+                        </p>
                     </div>
+                    <?php if (empty($games)): ?>
+                    <div class="text-center py-16">
+                        <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-4">search_off</span>
+                        <p class="text-xl font-bold text-on-surface">No games found</p>
+                        <p class="text-on-surface-variant mt-2">Try adjusting your filters or search terms</p>
+                        <a href="<?= URL_ROOT ?>/" class="inline-block mt-4 px-6 py-2 bg-primary text-on-primary rounded-lg font-bold">
+                            Clear Filters
+                        </a>
+                    </div>
+                    <?php else: ?>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                         <?php foreach ($games as $game): ?>
                         <div
@@ -174,42 +216,18 @@ $games = $gameModel->getAvailableGames();
                                 </div>
                                 <a href="<?= URL_ROOT ?>/booking?game_id=<?= $game['id'] ?>"
                                     class="w-full block text-center py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    Reservation 
+                                    Reserve 
                                 </a>
                             </div>
                         </div>
                         <?php endforeach; ?>
                     </div>
-                    <div class="mt-12 flex justify-center">
-                        <nav class="flex gap-2">
-                            <button
-                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors border border-outline-variant/10">
-                                <span class="material-symbols-outlined">chevron_left</span>
-                            </button>
-                            <button
-                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
-                            <button
-                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-bold border border-outline-variant/10">2</button>
-                            <button
-                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-bold border border-outline-variant/10">3</button>
-                            <span class="w-10 h-10 flex items-center justify-center text-on-surface-variant">...</span>
-                            <button
-                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-bold border border-outline-variant/10">12</button>
-                            <button
-                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors border border-outline-variant/10">
-                                <span class="material-symbols-outlined">chevron_right</span>
-                            </button>
-                        </nav>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>
     </main>
     <?php include __DIR__ . '/../includes/footer.php'; ?>
-    <button
-        class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-b from-primary to-primary-dim text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50 active:scale-95 transition-transform">
-        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">add</span>
-    </button>
 </body>
 
 </html>

@@ -210,8 +210,8 @@ class AuthController extends BaseController
         // Destroy the session
         session_destroy();
         
-        // Redirect to login page
-        header('Location: ' . \URL_ROOT . '/login');
+        // Redirect to home page
+        header('Location: ' . \URL_ROOT . '/');
         exit;
     }
 

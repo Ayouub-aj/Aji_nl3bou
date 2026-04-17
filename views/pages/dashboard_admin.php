@@ -158,66 +158,84 @@ require_once __DIR__ . '/../../config/init.php';
                 <div class="flex items-center gap-3">
                     <span class="material-symbols-outlined text-secondary"
                         data-icon="calendar_month">calendar_month</span>
-                    <h2 class="text-2xl font-extrabold font-headline tracking-tight">Recent Reservations</h2>
+                    <h2 class="text-2xl font-extrabold font-headline tracking-tight">Upcoming Reservations</h2>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xs font-bold text-on-surface-variant">Filter by:</span>
-                    <select
-                        class="bg-surface-container-highest border-none text-xs font-bold rounded-lg py-1 pl-3 pr-8 focus:ring-1 focus:ring-primary">
-                        <option>Today</option>
-                        <option>Tomorrow</option>
-                    </select>
-                </div>
+                <a href="<?= URL_ROOT ?>/reservations" class="text-sm font-bold text-primary hover:underline transition-all">View All</a>
             </div>
+            <?php $upcomingReservations = $data['upcomingReservations'] ?? []; ?>
+            <?php if (empty($upcomingReservations)): ?>
+            <div class="bg-surface-container rounded-xl p-8 text-center">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-4">event_busy</span>
+                <p class="text-on-surface-variant">No upcoming reservations.</p>
+            </div>
+            <?php else: ?>
             <div class="bg-surface-container rounded-xl overflow-hidden shadow-2xl">
                 <table class="w-full text-left border-collapse">
                     <thead class="bg-surface-container-low border-b border-white/5">
                         <tr>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
-                                Time</th>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
-                                Guest Name</th>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
-                                Size</th>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
-                                Game Request</th>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
-                                Status</th>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant text-right">
-                                Actions</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Date</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Time</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Guest Name</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Table</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Size</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Game</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Status</th>
+                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
+                        <?php foreach ($upcomingReservations as $res): ?>
+                        <?php
+                            $statusClass = match($res['status']) {
+                                'confirmed' => 'bg-tertiary/20 text-tertiary',
+                                'pending' => 'bg-secondary/20 text-secondary',
+                                'canceled' => 'bg-error/20 text-error',
+                                default => 'bg-on-surface-variant/20 text-on-surface-variant'
+                            };
+                        ?>
                         <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="px-6 py-4 font-bold text-secondary">20:30</td>
-                            <td class="px-6 py-4 font-semibold text-on-surface">The Miller Family</td>
-                            <td class="px-6 py-4 text-on-surface-variant">5 People</td>
-                            <td class="px-6 py-4"><span class="text-on-surface">Sushi Go! Party</span></td>
+                            <td class="px-6 py-4 font-bold text-on-surface"><?php echo date('M j', strtotime($res['date'])); ?></td>
+                            <td class="px-6 py-4 font-bold text-secondary"><?php echo date('H:i', strtotime($res['time'])); ?></td>
+                            <td class="px-6 py-4 font-semibold text-on-surface"><?php echo htmlspecialchars($res['client_name']); ?></td>
+                            <td class="px-6 py-4 text-on-surface-variant"><?php echo htmlspecialchars($res['table_name'] ?? 'TBD'); ?></td>
+                            <td class="px-6 py-4 text-on-surface-variant"><?php echo $res['players_count']; ?> People</td>
                             <td class="px-6 py-4">
-                                <span
-                                    class="bg-secondary/10 text-secondary text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-full">Pending</span>
+                                <span class="text-on-surface"><?php echo htmlspecialchars($res['game_title'] ?? '-'); ?></span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="<?php echo $statusClass; ?> text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-full">
+                                    <?php echo ucfirst($res['status']); ?>
+                                </span>
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex justify-end gap-2">
-                                    <button
-                                        class="p-1.5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors">
-                                        <span class="material-symbols-outlined text-sm text-error"
-                                            data-icon="close">close</span>
-                                    </button>
-                                    <button
-                                        class="bg-tertiary text-on-tertiary text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg hover:brightness-110 transition-all">Confirm</button>
+                                    <?php if ($res['status'] === 'pending'): ?>
+                                    <form action="<?= URL_ROOT ?>/reservations/confirm/<?php echo $res['id']; ?>" method="POST" class="inline">
+                                        <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                                        <button type="submit" class="bg-tertiary text-on-tertiary text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg hover:brightness-110 transition-all">Confirm</button>
+                                    </form>
+                                    <form action="<?= URL_ROOT ?>/reservations/cancel/<?php echo $res['id']; ?>" method="POST" class="inline">
+                                        <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                                        <button type="submit" class="p-1.5 rounded-lg border border-white/10 hover:bg-error/20 transition-colors">
+                                            <span class="material-symbols-outlined text-sm text-error">close</span>
+                                        </button>
+                                    </form>
+                                    <?php elseif ($res['status'] === 'confirmed'): ?>
+                                    <form action="<?= URL_ROOT ?>/reservations/cancel/<?php echo $res['id']; ?>" method="POST" class="inline">
+                                        <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                                        <button type="submit" class="p-1.5 rounded-lg border border-white/10 hover:bg-error/20 transition-colors">
+                                            <span class="material-symbols-outlined text-sm text-error">close</span>
+                                        </button>
+                                    </form>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
+            <?php endif; ?>
         </section>
     </main>
     <?php include __DIR__ . '/../includes/footer.php'; ?>
