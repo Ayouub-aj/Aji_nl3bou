@@ -47,3 +47,6 @@ auth.json
 /public/build/
 /public/storage/
 /public/uploads/
+
+# Local configuration (custom settings per developer)
+/config/config.local.php

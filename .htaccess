@@ -1,13 +1,14 @@
 RewriteEngine On
 
-# Use simple relative rules to make it folder-agnostic
-# If the request is for a real file in public/ or vendor/, serve it directly
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^(public|vendor)/(.*)$ $1/$2 [L]
-
-# Serve real files and directories as-is (CSS, JS, images, fonts, etc.)
-RewriteCond %{REQUEST_FILENAME} !-f
+# Remove trailing slash redirect issues
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Route everything else through the front controller
+# Serve real files and directories directly
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Route everything else through index.php
 RewriteRule ^ index.php [L]
