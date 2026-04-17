@@ -286,4 +286,27 @@ class ReservationModel
         $stmt->execute([$date]);
         return (int) $stmt->fetchColumn();
     }
+
+    /**
+     * Get upcoming confirmed reservations (future dates)
+     * 
+     * @param int $limit Maximum number of reservations to return
+     * @return array Upcoming reservations
+     */
+    public function getUpcomingReservations($limit = 10)
+    {
+        $sql = "SELECT r.*, t.name as table_name, t.capacity as table_capacity,
+                       g.title as game_title
+                FROM reservations r
+                LEFT JOIN tables t ON r.table_id = t.id
+                LEFT JOIN games g ON r.game_id = g.id
+                WHERE r.date >= CURDATE() AND r.status IN ('confirmed', 'pending')
+                ORDER BY r.date ASC, r.time ASC
+                LIMIT ?";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

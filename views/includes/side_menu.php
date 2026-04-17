@@ -30,6 +30,11 @@
             <span class="material-symbols-outlined">Tables</span>
             <span class="font-medium font-label">Tables</span>
         </a>
+        <a class="flex items-center gap-3 text-gray-500 px-4 py-3 transition-all hover:bg-[#1c1c1c] hover:text-[#b6a0ff] active:translate-x-1 duration-150"
+            href="<?= URL_ROOT ?>/">
+            <span class="material-symbols-outlined">casino</span>
+            <span class="font-medium font-label">Game Vault</span>
+        </a>
     </nav>
     <div class="mt-auto space-y-2 border-t border-white/5 pt-4">
         <a href="<?= URL_ROOT ?>/reservations/add">

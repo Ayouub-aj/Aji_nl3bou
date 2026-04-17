@@ -70,7 +70,6 @@ if ($filter !== 'all') {
                 <a href="<?= URL_ROOT ?>/reservations">
                     <button class="px-4 py-2 rounded-lg font-medium transition-colors <?= $filter === 'all' ? 'bg-surface-container-highest text-on-surface shadow-sm' : 'text-on-surface-variant hover:text-on-surface' ?>">List View</button>
                 </a>
-                <button class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface transition-colors font-medium">Calendar</button>
             </div>
         </header>
         

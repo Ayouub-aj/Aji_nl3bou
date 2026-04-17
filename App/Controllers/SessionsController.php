@@ -87,8 +87,29 @@ class SessionsController extends BaseController
      */
     public function home(): void
     {
-        // Get featured games for the homepage
-        $data['featuredGames'] = $this->gameModel->getAvailableGames();
+        // Get filter/search parameters from URL
+        $search = isset($_GET['search']) ? trim($_GET['search']) : null;
+        $category = isset($_GET['category']) ? trim($_GET['category']) : null;
+        $difficulty = isset($_GET['difficulty']) ? trim($_GET['difficulty']) : null;
+        $players = isset($_GET['players']) ? (int) $_GET['players'] : null;
+        
+        // Get filtered games
+        if ($search || $category || $difficulty || $players) {
+            $data['games'] = $this->gameModel->getFiltered($search, $category, $difficulty, $players);
+        } else {
+            $data['games'] = $this->gameModel->getAvailableGames();
+        }
+        
+        // Get categories for filter dropdown
+        $data['categories'] = $this->gameModel->getCategories();
+        
+        // Pass current filter values to view (for form persistence)
+        $data['filters'] = [
+            'search' => $search,
+            'category' => $category,
+            'difficulty' => $difficulty,
+            'players' => $players
+        ];
         
         // Show home page
         $this->view('pages/home', $data);
@@ -125,6 +146,13 @@ class SessionsController extends BaseController
         
         // Get today's reservations
         $data['todayReservations'] = $this->reservationModel->getReservationsByDate(date('Y-m-d'));
+        
+        // Get upcoming reservations (confirmed/pending, future dates)
+        $data['upcomingReservations'] = $this->reservationModel->getUpcomingReservations(10);
+        
+        // Count upcoming
+        $data['pendingCount'] = $this->reservationModel->countByStatus('pending');
+        $data['totalToday'] = count($data['todayReservations']);
         
         // Get active sessions
         $data['activeSessionsList'] = $this->sessionModel->getActiveSessions();

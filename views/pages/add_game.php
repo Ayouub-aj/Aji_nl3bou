@@ -72,16 +72,17 @@ require_once __DIR__ . '/../../config/init.php';
                     </div>
                     <div class="flex gap-4">
                         <button type="button" onclick="window.history.back()"
-                            class="px-6 py-2.5 rounded-lg font-bold text-sm text-gray-400 hover:text-white border border-outline-variant/15 hover:bg-surface-container-high transition-all">
+                            class="px-6 py-2.5 rounded-lg font-bold text-sm text-gray-400 hover:text-red-500 border border-outline-variant/15 hover:bg-surface-container-high transition-all">
                             Cancel
                         </button>
-                        <button type="submit"
-                            class="px-8 py-2.5 rounded-lg font-bold text-sm text-on-primary bg-gradient-to-v from-primary to-primary-dim shadow-[0_0_20px_rgba(182,160,255,0.3)] hover:shadow-[0_0_25px_rgba(182,160,255,0.5)] transition-all">
+                       <button type="submit"
+                            class="px-8 py-2.5 rounded-lg font-bold text-sm text-black bg-white shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] transition-all">
                             Save Game
                         </button>
+                            
                     </div>
                 </div>
-                <!-- Added form tag -->
+                <!-- Added form tag -->     
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Left: Form Sections -->
                     <div class="lg:col-span-2 space-y-6">

@@ -61,7 +61,7 @@ $categories = $categories ?? [];
         </header>
         <!-- Content Area -->
         <div class="mt-16 p-10 max-w-5xl mx-auto w-full">
-            <form action="<?= URL_ROOT ?>/games/update/<?= $game['id'] ?? '' ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= URL_ROOT ?>/games/edit/<?= $game['id'] ?? '' ?>" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                 <div class="flex items-center justify-between mb-10">
                     <div>
@@ -80,7 +80,7 @@ $categories = $categories ?? [];
                             </button>
                         </a>
                         <button type="submit"
-                            class="px-8 py-2.5 rounded-lg font-bold text-sm text-on-primary bg-gradient-to-v from-primary to-primary-dim shadow-[0_0_20px_rgba(182,160,255,0.3)] hover:shadow-[0_0_25px_rgba(182,160,255,0.5)] transition-all">
+                            class="px-8 py-2.5 rounded-lg font-bold text-sm text-white bg-gradient-to-v from-primary to-primary-dim shadow-[0_0_20px_rgba(182,160,255,0.3)] hover:shadow-[0_0_25px_rgba(182,160,255,0.5)] transition-all">
                             Update Game
                         </button>
                     </div>
