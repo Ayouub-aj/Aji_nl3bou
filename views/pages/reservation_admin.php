@@ -47,10 +47,10 @@ if ($filter !== 'all') {
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Admin Reservations | The Curated Playroom</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+    <link rel="stylesheet" href="<?= URL_ROOT ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -67,7 +67,7 @@ if ($filter !== 'all') {
                 </div>
             </div>
             <div class="flex items-center gap-3 bg-surface-container-low p-1 rounded-xl">
-                <a href="/dashboard/Aji_nl3bou/reservations">
+                <a href="<?= URL_ROOT ?>/reservations">
                     <button class="px-4 py-2 rounded-lg font-medium transition-colors <?= $filter === 'all' ? 'bg-surface-container-highest text-on-surface shadow-sm' : 'text-on-surface-variant hover:text-on-surface' ?>">List View</button>
                 </a>
                 <button class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface transition-colors font-medium">Calendar</button>
@@ -76,28 +76,28 @@ if ($filter !== 'all') {
         
         <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
             <div class="flex flex-wrap items-center gap-2">
-                <a href="/dashboard/Aji_nl3bou/reservations?filter=all">
+                <a href="<?= URL_ROOT ?>/reservations?filter=all">
                     <button class="px-4 py-2 rounded-full text-sm font-semibold transition-colors <?= $filter === 'all' ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-bright border border-outline-variant/10' ?>">
                         All (<?= $totalCount ?>)
                     </button>
                 </a>
-                <a href="/dashboard/Aji_nl3bou/reservations?filter=confirmed">
+                <a href="<?= URL_ROOT ?>/reservations?filter=confirmed">
                     <button class="px-4 py-2 rounded-full text-sm font-semibold transition-colors <?= $filter === 'confirmed' ? 'bg-secondary text-on-secondary font-bold' : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-bright border border-outline-variant/10' ?>">
                         Confirmed (<?= $confirmedCount ?>)
                     </button>
                 </a>
-                <a href="/dashboard/Aji_nl3bou/reservations?filter=pending">
+                <a href="<?= URL_ROOT ?>/reservations?filter=pending">
                     <button class="px-4 py-2 rounded-full text-sm font-semibold transition-colors <?= $filter === 'pending' ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-bright border border-outline-variant/10' ?>">
                         Pending (<?= $pendingCount ?>)
                     </button>
                 </a>
-                <a href="/dashboard/Aji_nl3bou/reservations?filter=canceled">
+                <a href="<?= URL_ROOT ?>/reservations?filter=canceled">
                     <button class="px-4 py-2 rounded-full text-sm font-semibold transition-colors <?= $filter === 'canceled' ? 'bg-error text-on-error' : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-bright border border-outline-variant/10' ?>">
                         Canceled (<?= $canceledCount ?>)
                     </button>
                 </a>
             </div>
-            <form method="GET" action="/dashboard/Aji_nl3bou/reservations" class="relative min-w-[300px]">
+            <form method="GET" action="<?= URL_ROOT ?>/reservations" class="relative min-w-[300px]">
                 <?php if ($filter !== 'all'): ?>
                 <input type="hidden" name="filter" value="<?= htmlspecialchars($filter) ?>">
                 <?php endif; ?>
@@ -182,7 +182,7 @@ if ($filter !== 'all') {
                             <td class="px-6 py-5 text-right">
                                 <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <?php if ($res['status'] === 'pending'): ?>
-                                    <form action="/dashboard/Aji_nl3bou/reservations/confirm/<?= $res['id'] ?>" method="POST" class="inline">
+                                    <form action="<?= URL_ROOT ?>/reservations/confirm/<?= $res['id'] ?>" method="POST" class="inline">
                                         <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCSRFToken() ?>">
                                         <button type="submit" class="p-2 rounded-lg hover:bg-secondary-container text-on-surface-variant hover:text-secondary transition-colors" title="Confirm">
                                             <span class="material-symbols-outlined">check_circle</span>
@@ -190,7 +190,7 @@ if ($filter !== 'all') {
                                     </form>
                                     <?php endif; ?>
                                     <?php if ($res['status'] !== 'canceled' && $res['status'] !== 'cancelled'): ?>
-                                    <form action="/dashboard/Aji_nl3bou/reservations/cancel/<?= $res['id'] ?>" method="POST" class="inline">
+                                    <form action="<?= URL_ROOT ?>/reservations/cancel/<?= $res['id'] ?>" method="POST" class="inline">
                                         <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCSRFToken() ?>">
                                         <button type="submit" class="p-2 rounded-lg hover:bg-error-container text-on-surface-variant hover:text-error transition-colors" title="Cancel">
                                             <span class="material-symbols-outlined">cancel</span>

@@ -1,17 +1,9 @@
 RewriteEngine On
 
-# Set the base path for the subdirectory
-RewriteBase /dashboard/Aji_nl3bou/
-
-# If the request is for a real file in public/, serve it directly
-RewriteCond %{REQUEST_URI} ^/dashboard/Aji_nl3bou/public/
+# Use simple relative rules to make it folder-agnostic
+# If the request is for a real file in public/ or vendor/, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^public/(.*)$ public/$1 [L]
-
-# If the request is for a real file in vendor/, serve it directly
-RewriteCond %{REQUEST_URI} ^/dashboard/Aji_nl3bou/vendor/
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^vendor/(.*)$ vendor/$1 [L]
+RewriteRule ^(public|vendor)/(.*)$ $1/$2 [L]
 
 # Serve real files and directories as-is (CSS, JS, images, fonts, etc.)
 RewriteCond %{REQUEST_FILENAME} !-f

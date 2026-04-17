@@ -14,14 +14,14 @@ $error = $data['error'] ?? '';
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Aji L3bo Café | New Reservation</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+    <link rel="stylesheet" href="<?= URL_ROOT ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary min-h-screen flex">
@@ -40,7 +40,7 @@ $error = $data['error'] ?? '';
                         </h1>
                     </div>
                 </div>
-                <a href="/dashboard/Aji_nl3bou/reservations" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-all text-sm">
+                <a href="<?= URL_ROOT ?>/reservations" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-all text-sm">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
                     Back to Reservations
                 </a>
@@ -54,7 +54,7 @@ $error = $data['error'] ?? '';
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div class="lg:col-span-8 space-y-8">
-                    <form class="space-y-10" method="POST" action="/dashboard/Aji_nl3bou/reservations/add">
+                    <form class="space-y-10" method="POST" action="<?= URL_ROOT ?>/reservations/add">
                         <section class="bg-surface-container-low p-8 rounded-xl">
                             <h3 class="text-secondary font-headline font-bold text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
                                 <span class="material-symbols-outlined text-sm">person</span>

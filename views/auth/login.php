@@ -10,13 +10,13 @@ require_once __DIR__ . '/../../config/init.php';
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Aji L3bo | Sign In</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+    <link rel="stylesheet" href="<?= URL_ROOT ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface min-h-screen flex flex-col">
@@ -41,7 +41,7 @@ require_once __DIR__ . '/../../config/init.php';
                 </div>
                 <!-- Admin/Client Toggle (Asymmetric Tab Design) -->
                 <!-- Form -->
-                <form class="space-y-6 mt-8" method="POST" action="/dashboard/Aji_nl3bou/login">
+                <form class="space-y-6 mt-8" method="POST" action="<?= URL_ROOT ?>/login">
                     <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                     <div class="space-y-4">
                         <!-- Username -->

@@ -67,7 +67,7 @@ class AuthController extends BaseController
     {
         // Only accept POST requests
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
@@ -125,7 +125,7 @@ class AuthController extends BaseController
     {
         // Check if user is logged in
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
@@ -140,7 +140,7 @@ class AuthController extends BaseController
     public function handleAddPassword(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/add-password');
+            header('Location: ' . \URL_ROOT . '/add-password');
             exit;
         }
         
@@ -152,7 +152,7 @@ class AuthController extends BaseController
         
         // Check if user is logged in
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
@@ -179,7 +179,7 @@ class AuthController extends BaseController
             unset($_SESSION['is_new_user']);
             
             // Redirect to client dashboard
-            header('Location: /dashboard/Aji_nl3bou/dashboard/client');
+            header('Location: ' . \URL_ROOT . '/dashboard/client');
             exit;
         } else {
             $this->view('auth/add_password', ['error' => 'Failed to update password. Please try again.']);
@@ -211,7 +211,7 @@ class AuthController extends BaseController
         session_destroy();
         
         // Redirect to login page
-        header('Location: /dashboard/Aji_nl3bou/login');
+        header('Location: ' . \URL_ROOT . '/login');
         exit;
     }
 
@@ -224,9 +224,9 @@ class AuthController extends BaseController
     private function redirectBasedOnRole($role): void
     {
         if ($role === 'admin') {
-            header('Location: /dashboard/Aji_nl3bou/dashboard/admin');
+            header('Location: ' . \URL_ROOT . '/dashboard/admin');
         } else {
-            header('Location: /dashboard/Aji_nl3bou/dashboard/client');
+            header('Location: ' . \URL_ROOT . '/dashboard/client');
         }
         exit;
     }

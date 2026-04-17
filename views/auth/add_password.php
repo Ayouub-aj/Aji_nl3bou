@@ -15,8 +15,8 @@ require_once __DIR__ . '/../../config/init.php';
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
-    <link href="/dashboard/Aji_nl3bou/public/style/style.css" rel="stylesheet" />
+    <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
+    <link href="<?= URL_ROOT ?>/public/style/style.css" rel="stylesheet" />
 </head>
 
 <body
@@ -51,7 +51,7 @@ require_once __DIR__ . '/../../config/init.php';
             </div>
             <!-- Central Card (Glassmorphism) -->
             <div class="glass-card rounded-xl p-8 border border-outline-variant/15 shadow-2xl">
-                <form class="space-y-6" method="POST" action="/dashboard/Aji_nl3bou/add-password">
+                <form class="space-y-6" method="POST" action="<?= URL_ROOT ?>/add-password">
                     <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                     <!-- New Password Field -->
                     <div class="space-y-2">
@@ -127,7 +127,7 @@ require_once __DIR__ . '/../../config/init.php';
             <!-- Cancel/Back Link -->
             <div class="mt-6 text-center">
                 <a class="text-xs font-label uppercase tracking-widest text-outline hover:text-on-surface transition-colors"
-                    href="/dashboard/Aji_nl3bou/login">Cancel and return to login</a>
+                    href="<?= URL_ROOT ?>/login">Cancel and return to login</a>
             </div>
         </div>
     </main>

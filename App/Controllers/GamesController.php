@@ -74,7 +74,7 @@ class GamesController extends BaseController
         // Move uploaded file
         if (move_uploaded_file($file['tmp_name'], $destination)) {
             // Return the public URL path
-            return '/dashboard/Aji_nl3bou/public/uploads/' . $filename;
+            return \URL_ROOT . '/public/uploads/' . $filename;
         }
         
         return false;
@@ -153,7 +153,7 @@ class GamesController extends BaseController
     {
         // Only accept POST requests
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/games/add');
+            header('Location: ' . \URL_ROOT . '/games/add');
             exit;
         }
         
@@ -189,7 +189,7 @@ class GamesController extends BaseController
         
         if ($success) {
             // Redirect to inventory page on success
-            header('Location: /dashboard/Aji_nl3bou/inventory?success=added');
+            header('Location: ' . \URL_ROOT . '/inventory?success=added');
             exit;
         } else {
             // Show error
@@ -226,7 +226,7 @@ class GamesController extends BaseController
     public function update($game_id): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/games/edit/' . $game_id);
+            header('Location: ' . \URL_ROOT . '/games/edit/' . $game_id);
             exit;
         }
         
@@ -256,7 +256,7 @@ class GamesController extends BaseController
         $success = $this->gameModel->update($game_id, $data);
         
         if ($success) {
-            header('Location: /dashboard/Aji_nl3bou/inventory?success=updated');
+            header('Location: ' . \URL_ROOT . '/inventory?success=updated');
             exit;
         } else {
             $data['error'] = 'Failed to update game';
@@ -276,19 +276,19 @@ class GamesController extends BaseController
     {
         // Only allow POST requests for deletion
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/inventory');
+            header('Location: ' . \URL_ROOT . '/inventory');
             exit;
         }
         
         // Verify CSRF token
         if (!\App\Core\Security::validateCSRFToken($_POST['csrf_token'] ?? '')) {
-            header('Location: /dashboard/Aji_nl3bou/inventory?error=invalid_token');
+            header('Location: ' . \URL_ROOT . '/inventory?error=invalid_token');
             exit;
         }
         
         $success = $this->gameModel->delete($game_id);
         
-        header('Location: /dashboard/Aji_nl3bou/inventory?success=deleted');
+        header('Location: ' . \URL_ROOT . '/inventory?success=deleted');
         exit;
     }
 
@@ -307,7 +307,7 @@ class GamesController extends BaseController
         $status = $_POST['status'] ?? 'available';
         $this->gameModel->updateStatus($game_id, $status);
         
-        header('Location: /dashboard/Aji_nl3bou/inventory');
+        header('Location: ' . \URL_ROOT . '/inventory');
         exit;
     }
 

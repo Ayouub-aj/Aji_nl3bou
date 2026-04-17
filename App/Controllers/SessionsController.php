@@ -105,13 +105,13 @@ class SessionsController extends BaseController
     {
         // Check if user is logged in and is admin
         if (!$this->isLoggedIn()) {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
         if (!$this->isAdmin()) {
             // Non-admin users go to client dashboard
-            header('Location: /dashboard/Aji_nl3bou/dashboard/client');
+            header('Location: ' . \URL_ROOT . '/dashboard/client');
             exit;
         }
         
@@ -156,7 +156,7 @@ class SessionsController extends BaseController
         
         // Check if user is logged in
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
@@ -205,7 +205,7 @@ class SessionsController extends BaseController
         $this->startSession();
         
         if (!$this->isLoggedIn()) {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
@@ -229,7 +229,7 @@ class SessionsController extends BaseController
     public function startSessionForReservation($reservation_id): void
     {
         if (!$this->isAdmin()) {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
@@ -247,7 +247,7 @@ class SessionsController extends BaseController
             $this->tableModel->updateTableStatus($reservation['table_id'], 'occupied');
         }
         
-        header('Location: /dashboard/Aji_nl3bou/dashboard/admin');
+        header('Location: ' . \URL_ROOT . '/dashboard/admin');
         exit;
     }
 
@@ -262,7 +262,7 @@ class SessionsController extends BaseController
     public function endSession($session_id): void
     {
         if (!$this->isAdmin()) {
-            header('Location: /dashboard/Aji_nl3bou/login');
+            header('Location: ' . \URL_ROOT . '/login');
             exit;
         }
         
@@ -277,7 +277,7 @@ class SessionsController extends BaseController
             $this->tableModel->updateTableStatus($session['table_id'], 'available');
         }
         
-        header('Location: /dashboard/Aji_nl3bou/dashboard/admin');
+        header('Location: ' . \URL_ROOT . '/dashboard/admin');
         exit;
     }
 }

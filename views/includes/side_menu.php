@@ -11,34 +11,34 @@
     </div>
     <nav class="flex-1 space-y-2">
         <a class="flex items-center gap-3 bg-[#b6a0ff]/10 text-[#b6a0ff] rounded-lg px-4 py-3 transition-all active:translate-x-1 duration-150"
-            href="/dashboard/Aji_nl3bou/dashboard/admin">
+            href="<?= URL_ROOT ?>/dashboard/admin">
             <span class="material-symbols-outlined">dashboard</span>
             <span class="font-medium font-label">Dashboard</span>
         </a>
         <a class="flex items-center gap-3 text-gray-500 px-4 py-3 transition-all hover:bg-[#1c1c1c] hover:text-[#b6a0ff] active:translate-x-1 duration-150"
-            href="/dashboard/Aji_nl3bou/inventory">
+            href="<?= URL_ROOT ?>/inventory">
             <span class="material-symbols-outlined">inventory_2</span>
             <span class="font-medium font-label">Inventory</span>
         </a>
         <a class="flex items-center gap-3 text-gray-500 px-4 py-3 transition-all hover:bg-[#1c1c1c] hover:text-[#b6a0ff] active:translate-x-1 duration-150"
-            href="/dashboard/Aji_nl3bou/reservations">
+            href="<?= URL_ROOT ?>/reservations">
             <span class="material-symbols-outlined">event_available</span>
             <span class="font-medium font-label">Reservations</span>
         </a>
         <a class="flex items-center gap-3 text-gray-500 px-4 py-3 transition-all hover:bg-[#1c1c1c] hover:text-[#b6a0ff] active:translate-x-1 duration-150"
-            href="/dashboard/Aji_nl3bou/tables">
+            href="<?= URL_ROOT ?>/tables">
             <span class="material-symbols-outlined">Tables</span>
             <span class="font-medium font-label">Tables</span>
         </a>
     </nav>
     <div class="mt-auto space-y-2 border-t border-white/5 pt-4">
-        <a href="/dashboard/Aji_nl3bou/reservations/add">
+        <a href="<?= URL_ROOT ?>/reservations/add">
             <button
                 class="w-full bg-gradient-to-b from-primary to-primary-dim text-on-primary font-bold py-3 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-95 mb-4">
                 New Reservation
             </button>
         </a>
-        <a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:text-[#b6a0ff] transition-colors" href="/dashboard/Aji_nl3bou/logout">
+        <a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:text-[#b6a0ff] transition-colors" href="<?= URL_ROOT ?>/logout">
             <span class="material-symbols-outlined">logout</span>
             <span class="text-sm font-label">Logout</span>
         </a>

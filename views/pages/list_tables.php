@@ -14,10 +14,10 @@ $tables = $tableModel->getAllTables();
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Tables | The Curated Playroom</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+    <link rel="stylesheet" href="<?= URL_ROOT ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface flex min-h-screen">
@@ -73,7 +73,7 @@ $tables = $tableModel->getAllTables();
                     </div>
 
                     <!-- Status Update Form -->
-                    <form action="/dashboard/Aji_nl3bou/tables/update-status/<?= $table['id'] ?>" method="POST" class="flex gap-2">
+                    <form action="<?= URL_ROOT ?>/tables/update-status/<?= $table['id'] ?>" method="POST" class="flex gap-2">
                         <select name="status" class="flex-1 bg-surface-container-highest border border-outline-variant/15 rounded-lg px-3 py-2 text-sm text-on-surface focus:ring-2 focus:ring-primary/50 outline-none">
                             <option value="available" <?= ($table['status'] ?? '') === 'available' ? 'selected' : '' ?>>Available</option>
                             <option value="free" <?= ($table['status'] ?? '') === 'free' ? 'selected' : '' ?>>Free</option>

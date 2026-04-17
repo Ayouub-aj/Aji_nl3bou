@@ -10,13 +10,13 @@ require_once __DIR__ . '/../../config/init.php';
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Admin Portal | The Curated Playroom</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+    <link rel="stylesheet" href="<?= URL_ROOT ?>/public/style/style.css">
 </head>
 
 <body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -94,7 +94,7 @@ require_once __DIR__ . '/../../config/init.php';
                     <span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
                     <h2 class="text-2xl font-extrabold font-headline tracking-tight">Live Sessions</h2>
                 </div>
-                <a href="/dashboard/Aji_nl3bou/tables" class="text-sm font-bold text-primary hover:underline transition-all">View All Tables</a>
+                <a href="<?= URL_ROOT ?>/tables" class="text-sm font-bold text-primary hover:underline transition-all">View All Tables</a>
             </div>
             <?php $activeSessions = $data['activeSessionsList'] ?? []; ?>
             <?php if (empty($activeSessions)): ?>
@@ -146,7 +146,7 @@ require_once __DIR__ . '/../../config/init.php';
                     </div>
                     <div class="bg-surface-container-low px-6 py-4 flex justify-between items-center">
                         <span class="text-xs text-on-surface-variant">Started <?php echo date('H:i', $startTime); ?></span>
-                        <a href="/dashboard/Aji_nl3bou/sessions/end/<?php echo $session['id']; ?>" class="text-sm font-bold text-error hover:underline">End Session</a>
+                        <a href="<?= URL_ROOT ?>/sessions/end/<?php echo $session['id']; ?>" class="text-sm font-bold text-error hover:underline">End Session</a>
                     </div>
                 </div>
                 <?php endforeach; ?>

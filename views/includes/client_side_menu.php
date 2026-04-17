@@ -11,12 +11,12 @@
     </div>
     <nav class="flex-1 space-y-2">
         <a class="flex items-center gap-3 bg-[#b6a0ff]/10 text-[#b6a0ff] rounded-lg px-4 py-3 transition-all active:translate-x-1 duration-150"
-            href="/dashboard/Aji_nl3bou/dashboard/client">
+            href="<?= URL_ROOT ?>/dashboard/client">
             <span class="material-symbols-outlined">dashboard</span>
             <span class="font-medium font-label">Dashboard</span>
         </a>
         <a class="flex items-center gap-3 text-gray-500 px-4 py-3 transition-all hover:bg-[#1c1c1c] hover:text-[#b6a0ff] active:translate-x-1 duration-150"
-            href="/dashboard/Aji_nl3bou/">
+            href="<?= URL_ROOT ?>/">
             <span class="material-symbols-outlined">casino</span>
             <span class="font-medium font-label">Game Vault</span>
         </a>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <a class="flex items-center gap-3 px-4 py-2 text-gray-500 hover:text-error-dim transition-all rounded-lg"
-            href="/dashboard/Aji_nl3bou/logout">
+            href="<?= URL_ROOT ?>/logout">
             <span class="material-symbols-outlined">logout</span>
             <span class="font-medium text-sm">Log Out</span>
         </a>
