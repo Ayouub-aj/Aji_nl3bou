@@ -15,8 +15,8 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="tailwind-config.js"></script>
-    <link href="style.css" rel="stylesheet" />
+    <script src="../style/tailwind-config.js"></script>
+    <link href="../style/style.css" rel="stylesheet" />
 </head>
 
 <body
@@ -51,7 +51,8 @@
             </div>
             <!-- Central Card (Glassmorphism) -->
             <div class="glass-card rounded-xl p-8 border border-outline-variant/15 shadow-2xl">
-                <form class="space-y-6">
+                <form class="space-y-6" method="POST" action="add_password.php">
+                    <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                     <!-- New Password Field -->
                     <div class="space-y-2">
                         <label class="font-label text-xs uppercase tracking-widest text-on-surface-variant ml-1">New
@@ -59,7 +60,7 @@
                         <div class="relative">
                             <input
                                 class="w-full bg-surface-container-highest border border-outline-variant/15 rounded-lg px-4 py-3 text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                                placeholder="••••••••" type="password" />
+                                name="password" placeholder="••••••••" type="password" required />
                             <span
                                 class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant cursor-pointer"
                                 data-icon="visibility">visibility</span>
@@ -101,7 +102,7 @@
                         <div class="relative">
                             <input
                                 class="w-full bg-surface-container-highest border border-outline-variant/15 rounded-lg px-4 py-3 text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                                placeholder="••••••••" type="password" />
+                                name="confirm_password" placeholder="••••••••" type="password" required />
                         </div>
                     </div>
                     <!-- Action Button -->
@@ -133,7 +134,7 @@
     <!-- Footer: Transcribed from JSON -->
     <footer
         class="bg-[#0e0e0e] text-[#b6a0ff] font-['Inter'] text-xs uppercase tracking-widest docked full-width bottom-0 border-t border-[#ffffff15] flat no shadows w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="text-gray-500">© 2024 The Curated Playroom. All rights reserved.</div>
+        <div class="text-gray-500">© <?php echo date('Y'); ?> The Curated Playroom. All rights reserved.</div>
         <div class="flex gap-6">
             <a class="text-gray-500 hover:text-[#b5ffc2] transition-colors opacity-80 hover:opacity-100" href="#">Terms
                 of Service</a>

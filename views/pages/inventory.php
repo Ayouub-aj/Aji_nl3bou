@@ -7,74 +7,19 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Admin Game Inventory | The Curated Playroom</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script src="tailwind-config.js"></script>
+  <script src="../style/tailwind-config.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css">
-  <script src="main.js" defer></script>
-</head>
+  <link rel="stylesheet" href="../style/style.css">
+  <script src="../style/main.js" defer></script>
 </head>
 
 <body class="bg-surface text-on-surface flex min-h-screen">
   <!-- SideNavBar Shell -->
-  <aside
-    class="admin-sidebar h-screen w-64 fixed left-0 top-0 bg-[#131313] flex flex-col p-4 border-r border-[#b6a0ff]/5 shadow-2xl font-['Inter'] font-medium z-50 -translate-x-full lg:translate-x-0 transition-transform">
-    <div class="mb-10 px-4 flex justify-between items-center">
-      <div>
-        <h1 class="text-xl font-black text-[#b6a0ff] tracking-tighter">Admin Portal</h1>
-        <p class="text-xs text-on-surface-variant">Midnight Branch</p>
-      </div>
-      <button id="menu-close" class="lg:hidden text-on-surface-variant">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-    <nav class="flex-1 space-y-2">
-      <a class="flex items-center gap-3 text-gray-500 px-4 py-3 hover:bg-[#1c1c1c] hover:text-[#b6a0ff] transition-all active:translate-x-1 duration-150"
-        href="dashboard_admin.php">
-        <span class="material-symbols-outlined">dashboard</span>
-        <span>Dashboard</span>
-      </a>
-      <a class="flex items-center gap-3 bg-[#b6a0ff]/10 text-[#b6a0ff] rounded-lg px-4 py-3 active:translate-x-1 duration-150"
-        href="inventory.php">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
-        <span>Inventory</span>
-      </a>
-      <a class="flex items-center gap-3 text-gray-500 px-4 py-3 hover:bg-[#1c1c1c] hover:text-[#b6a0ff] transition-all active:translate-x-1 duration-150"
-        href="reservation_admin.php">
-        <span class="material-symbols-outlined">event_available</span>
-        <span>Reservations</span>
-      </a>
-      <!-- <a class="flex items-center gap-3 text-gray-500 px-4 py-3 hover:bg-[#1c1c1c] hover:text-[#b6a0ff] transition-all active:translate-x-1 duration-150"
-        href="#">
-        <span class="material-symbols-outlined">history</span>
-        <span>History</span>
-      </a> -->
-      <!-- <a class="flex items-center gap-3 text-gray-500 px-4 py-3 hover:bg-[#1c1c1c] hover:text-[#b6a0ff] transition-all active:translate-x-1 duration-150"
-        href="#">
-        <span class="material-symbols-outlined">query_stats</span>
-        <span>Stats</span>
-      </a> -->
-    </nav>
-    <div class="mt-auto space-y-2 border-t border-[#b6a0ff]/5 pt-4">
-      <button
-        class="w-full bg-gradient-to-b from-primary to-primary-dim text-on-primary font-bold py-3 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-95 mb-4">
-        New Reservation
-      </button>
-      <a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-[#1c1c1c] hover:text-[#b6a0ff] transition-all"
-        href="#">
-        <span class="material-symbols-outlined text-xl">settings</span>
-        <span class="text-sm">Settings</span>
-      </a>
-      <a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-[#1c1c1c] hover:text-[#b6a0ff] transition-all"
-        href="#">
-        <span class="material-symbols-outlined text-xl">help</span>
-        <span class="text-sm">Support</span>
-      </a>
-    </div>
-  </aside>
+  <?php include '../includes/side_menu.php'; ?>
   <!-- Main Content Area -->
   <main class="lg:ml-64 admin-main flex-1 flex flex-col min-h-screen">
     <!-- Top Action Bar -->
@@ -90,13 +35,13 @@
         </div>
       </div>
       <div class="flex items-center gap-4">
-        <div class="relative group">
+        <form method="GET" action="inventory.php" class="relative group">
           <span
             class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
           <input
             class="bg-surface-container-highest border-none outline-none focus:ring-2 focus:ring-primary/20 rounded-lg pl-10 pr-4 py-2.5 w-64 text-sm transition-all placeholder:text-outline"
-            placeholder="Search games by title..." type="text" />
-        </div>
+            name="query" placeholder="Search games by title..." type="text" />
+        </form>
         <button
           class="flex items-center gap-2 bg-surface-container-high text-on-surface px-4 py-2.5 rounded-lg border border-outline-variant/10 hover:bg-surface-bright transition-all">
           <span class="material-symbols-outlined text-xl">filter_list</span>
@@ -352,17 +297,7 @@
       </div>
     </section>
     <!-- Site Footer -->
-    <footer
-      class="w-full py-12 border-t border-[#b6a0ff]/10 flex flex-col items-center justify-center gap-6 bg-[#0e0e0e] font-['Inter'] text-sm">
-      <div class="text-lg font-bold text-[#b6a0ff]">The Curated Playroom</div>
-      <div class="flex gap-8">
-        <a class="text-gray-500 hover:text-white transition-colors" href="#">Terms</a>
-        <a class="text-gray-500 hover:text-white transition-colors" href="#">Privacy</a>
-        <a class="text-gray-500 hover:text-white transition-colors" href="#">Careers</a>
-        <a class="text-gray-500 hover:text-white transition-colors" href="#">Contact</a>
-      </div>
-      <div class="text-gray-500">© 2024 The Curated Playroom. Roll with intention.</div>
-    </footer>
+    <?php include '../includes/footer.php'; ?>
   </main>
 </body>
 

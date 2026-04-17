@@ -57,8 +57,8 @@ tailwind.config = {
       },
       "borderRadius": {
         "DEFAULT": "0.25rem",
-        "lg": "0.5rem",
-        "xl": "0.75rem",
+        "lg": "1.0rem",
+        "xl": "1.25rem",
         "full": "9999px"
       },
       "fontFamily": {
