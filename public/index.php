@@ -1,1 +1,4 @@
-require_once __DIR__ . '/../vendor/autoload.php';
+<?php
+// Public entry point - redirect to main index
+header('Location: ../index.php');
+exit;

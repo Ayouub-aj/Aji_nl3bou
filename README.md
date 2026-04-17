@@ -141,6 +141,21 @@ Session "1" -- "1" Table : uses
 
 ---
 
+### 🔄 Routing Flow
+
+Visualisation du cycle de vie d'une requête, de l'URL jusqu'au contrôleur :
+
+```mermaid
+flowchart TD
+    URL([yoursite.com/games/list]) -- "1. Request" --> RootHT[Root .htaccess]
+    RootHT -- "2. Redirect to public/" --> PubHT[public/.htaccess]
+    PubHT -- "3. Rewrite to index.php?url=..." --> Index[public/index.php]
+    Index -- "4. Router reads URL" --> Router{Router}
+    Router -- "5. Dispatch" --> Controller[GamesController]
+```
+
+---
+
 ## 🗄️ Structure de la Base de Données
 
 | Table | Description |

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class Security
 {
     public static function generateCSRFToken(): string

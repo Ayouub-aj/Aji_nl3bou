@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/../../config/init.php';
+use App\Models\GameModel;
+
+$gameModel = new GameModel();
+$games = $gameModel->getAllGames();
+$totalGames = count($games);
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -7,19 +15,18 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Admin Game Inventory | The Curated Playroom</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script src="../style/tailwind-config.js"></script>
+  <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="../style/style.css">
-  <script src="../style/main.js" defer></script>
+  <link rel="stylesheet" href="<?= URL_ROOT ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface flex min-h-screen">
   <!-- SideNavBar Shell -->
-  <?php include '../includes/side_menu.php'; ?>
+  <?php include __DIR__ . '/../includes/side_menu.php'; ?>
   <!-- Main Content Area -->
   <main class="lg:ml-64 admin-main flex-1 flex flex-col min-h-screen">
     <!-- Top Action Bar -->
@@ -31,7 +38,7 @@
         </button>
         <div class="flex flex-col">
           <h2 class="text-3xl font-extrabold tracking-tight font-headline text-on-surface">Game Inventory</h2>
-          <p class="text-on-surface-variant text-sm">Managing 148 titles across 12 categories</p>
+          <p class="text-on-surface-variant text-sm">Managing <?= $totalGames ?> titles</p>
         </div>
       </div>
       <div class="flex items-center gap-4">
@@ -47,7 +54,7 @@
           <span class="material-symbols-outlined text-xl">filter_list</span>
           <span class="text-sm font-medium">Filter</span>
         </button>
-        <a href="add_game.php">
+        <a href="<?= URL_ROOT ?>/games/add">
           <button
             class="flex items-center gap-2 bg-gradient-to-b from-primary to-primary-dim text-on-primary-fixed px-6 py-2.5 rounded-lg font-bold shadow-lg shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] transition-all">
             <span class="material-symbols-outlined">add_circle</span>
@@ -74,186 +81,80 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-outline-variant/5">
-              <!-- Row 1 -->
+              <?php foreach ($games as $game): ?>
+              <?php
+                $statusClass = match($game['status']) {
+                  'available' => 'bg-tertiary-container text-on-tertiary-container',
+                  'unavailable' => 'bg-error-container text-on-error',
+                  default => 'bg-surface-container-high text-on-surface-variant'
+                };
+                $statusText = match($game['status']) {
+                  'available' => 'Available',
+                  'unavailable' => 'Unavailable',
+                  default => ucfirst($game['status'])
+                };
+              ?>
               <tr class="hover:bg-surface-container-highest/50 transition-colors group">
                 <td class="px-6 py-4">
                   <div class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden">
-                    <img class="w-full h-full object-cover"
-                      data-alt="high quality top down shot of a complex sci-fi themed board game box with vibrant purple and neon accents"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIlPNm1nJPrMEJIwp1VCfOpJUpDaHHNUFIw2IXQ8VNqEfQlelIGL_AzkdcvrgNORJKmsP7-61uNhIAvh5s0jSSmJlXZDE5Ew0uOMaTIrr01v-HqznKbGMTax7EjJaIJsqLmS_pfSe5bJXQoh3_MZWPzpJKD6y1Rroag-h58R7LDrVUoCfi-AF_Ahe96UyE2L7smixcZTQzlMz8en5pP55JV38FS00PXFlvG6oRJ9r1YGnWLzHj6vyQhrFTWpowC269RalMjPx2fzE" />
+                    <?php if (!empty($game['image_url'])): ?>
+                    <img class="w-full h-full object-cover" src="<?= htmlspecialchars($game['image_url']) ?>" alt="<?= htmlspecialchars($game['title']) ?>" />
+                    <?php else: ?>
+                    <div class="w-full h-full flex items-center justify-center bg-surface-container">
+                      <span class="material-symbols-outlined text-on-surface-variant">casino</span>
+                    </div>
+                    <?php endif; ?>
                   </div>
                 </td>
                 <td class="px-6 py-4">
                   <div class="flex flex-col">
-                    <span class="font-bold text-on-surface text-lg">Terraforming Mars</span>
-                    <span class="text-xs text-on-surface-variant">ISBN: 978-01-2345-678</span>
+                    <span class="font-bold text-on-surface text-lg"><?= htmlspecialchars($game['title']) ?></span>
+                    <span class="text-xs text-on-surface-variant"><?= htmlspecialchars($game['category'] ?? '') ?></span>
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <span
-                    class="px-3 py-1 rounded-full bg-primary-container text-on-primary-container text-xs font-bold uppercase tracking-tighter">Strategy</span>
+                  <span class="px-3 py-1 rounded-full bg-primary-container text-on-primary-container text-xs font-bold uppercase tracking-tighter"><?= htmlspecialchars($game['category'] ?? 'N/A') ?></span>
                 </td>
                 <td class="px-6 py-4">
                   <div class="flex items-center gap-1.5 text-on-surface-variant">
-                    <span class="material-symbols-outlined text-sm" data-icon="groups">groups</span>
-                    <span class="text-sm font-medium">1 - 5</span>
+                    <span class="material-symbols-outlined text-sm">groups</span>
+                    <span class="text-sm font-medium"><?= $game['min_players'] ?? '1' ?> - <?= $game['max_players'] ?? '5' ?></span>
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-xs font-bold">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full <?= $statusClass ?> text-xs font-bold">
+                    <?php if ($game['status'] === 'available'): ?>
                     <span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
-                    Available
+                    <?php endif; ?>
+                    <?= $statusText ?>
                   </div>
                 </td>
                 <td class="px-6 py-4 text-right">
                   <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-colors">
-                      <span class="material-symbols-outlined" data-icon="edit">edit</span>
-                    </button>
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-error transition-colors">
-                      <span class="material-symbols-outlined" data-icon="delete">delete</span>
-                    </button>
+                    <a href="<?= URL_ROOT ?>/games/edit/<?= $game['id'] ?>">
+                      <button class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">edit</span>
+                      </button>
+                    </a>
+                    <form action="<?= URL_ROOT ?>/games/delete/<?= $game['id'] ?>" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this game?');">
+                      <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
+                      <button type="submit" class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-error transition-colors">
+                        <span class="material-symbols-outlined">delete</span>
+                      </button>
+                    </form>
                   </div>
                 </td>
               </tr>
-              <!-- Row 2 -->
-              <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-                <td class="px-6 py-4">
-                  <div class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden">
-                    <img class="w-full h-full object-cover"
-                      data-alt="colorful birds on board game cards with warm lighting and wooden tokens scattered around artistic tabletop game components"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvZfZF8UB2VZ1mertM66apO12bWzu3cyRkhv7gbpWZgezSHdmEK7cBFBXJIl7k4FZg1lrLl68LDjlnB_dZsOAANfpFQqPYvQ9yz4QC0bWKl8h354bH_yYKDD62fH5_Wv8NYuMG72a2JiAwt8oHzc34HmqlYDAnS5VSFtmKSaScBtBe-vRZAU93keal451FOXsgRKjbHTbdjKh581ELsZuc2O1Q59iBL3mA7btu6e_x9F_rKsx8taFDgldsWZwYjg5w3PVimcZmcDE" />
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="flex flex-col">
-                    <span class="font-bold text-on-surface text-lg">Wingspan</span>
-                    <span class="text-xs text-on-surface-variant">ISBN: 978-01-9876-543</span>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <span
-                    class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-tighter">Family</span>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="flex items-center gap-1.5 text-on-surface-variant">
-                    <span class="material-symbols-outlined text-sm" data-icon="groups">groups</span>
-                    <span class="text-sm font-medium">1 - 5</span>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container text-secondary-fixed text-xs font-bold">
-                    <span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
-                    In-Use
-                  </div>
-                </td>
-                <td class="px-6 py-4 text-right">
-                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-colors">
-                      <span class="material-symbols-outlined" data-icon="edit">edit</span>
-                    </button>
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-error transition-colors">
-                      <span class="material-symbols-outlined" data-icon="delete">delete</span>
-                    </button>
-                  </div>
+              <?php endforeach; ?>
+              <?php if (empty($games)): ?>
+              <tr>
+                <td colspan="6" class="px-6 py-12 text-center text-on-surface-variant">
+                  <span class="material-symbols-outlined text-4xl mb-4">casino</span>
+                  <p class="text-lg font-medium">No games in inventory</p>
+                  <p class="text-sm">Add your first game to get started</p>
                 </td>
               </tr>
-              <!-- Row 3 -->
-              <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-                <td class="px-6 py-4">
-                  <div class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden">
-                    <img class="w-full h-full object-cover"
-                      data-alt="a dark medieval themed board game box featuring a dragon silhouette and golden embossed title text on black background"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK7MzdqjHSnI0tORw15GJ5w-OZp_wVmzlQRF7xZNr2MHmqVFuyMWIln39YV4hZIwqtbXqjcQso7A1NXA1VF98OQ8HNax8fOXZVabnv89BCp5o-lFVbRRBnKADaqvtcPZyuO-H6frPgk_UkH2JFoWw-YrgO-AawCLYwwrpiGmtdxEJDNW4CUAVU2GofbLNq6hArHOQ3R0gy7gZ1pE_EM6Fhonmz6tVAVBizyaK9iBedl8ExgT0Zi1a1OC0VJZzORPKM4iuOTcroBNo" />
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="flex flex-col">
-                    <span class="font-bold text-on-surface text-lg">Gloomhaven</span>
-                    <span class="text-xs text-on-surface-variant">ISBN: 978-02-1111-222</span>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <span
-                    class="px-3 py-1 rounded-full bg-primary-container text-on-primary-container text-xs font-bold uppercase tracking-tighter">Strategy</span>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="flex items-center gap-1.5 text-on-surface-variant">
-                    <span class="material-symbols-outlined text-sm" data-icon="groups">groups</span>
-                    <span class="text-sm font-medium">1 - 4</span>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-error-container text-on-error-container text-xs font-bold">
-                    <span class="w-2 h-2 rounded-full bg-on-error-container"></span>
-                    Maintenance
-                  </div>
-                </td>
-                <td class="px-6 py-4 text-right">
-                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-colors">
-                      <span class="material-symbols-outlined" data-icon="edit">edit</span>
-                    </button>
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-error transition-colors">
-                      <span class="material-symbols-outlined" data-icon="delete">delete</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <!-- Row 4 -->
-              <tr class="hover:bg-surface-container-highest/50 transition-colors group">
-                <td class="px-6 py-4">
-                  <div class="w-14 h-14 rounded-lg bg-surface-container-highest overflow-hidden">
-                    <img class="w-full h-full object-cover"
-                      data-alt="vibrant colored plastic board game tokens and dice on a blue gaming surface with soft bokeh background"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjnjtZWqBTm_k_KyGbATOwo04GwXBzWj-kFMpbVDvvce4mpWVyWoca3m8BoGNpN5RgloXRXgxs4s34v9qvO3XPHzQoXiLKk0COaqzAeKD6OHPHJ83SixttsWHeNc5i4HZAIvNY4hvhaydFAAdF0liTJQO27kAjyYf58kAS9QVbOrsd9cPqGClwZNaJIG2DH3flgC0eCKw4vXl1v8T3lmrTiInL-L2G_yI7vOlJ2Nbz8ZxqoZakfu_Jo4LKcVMVLnOfayySwS78t54" />
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="flex flex-col">
-                    <span class="font-bold text-on-surface text-lg">Catan</span>
-                    <span class="text-xs text-on-surface-variant">ISBN: 978-01-5555-444</span>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <span
-                    class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-tighter">Family</span>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="flex items-center gap-1.5 text-on-surface-variant">
-                    <span class="material-symbols-outlined text-sm" data-icon="groups">groups</span>
-                    <span class="text-sm font-medium">3 - 4</span>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-xs font-bold">
-                    <span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
-                    Available
-                  </div>
-                </td>
-                <td class="px-6 py-4 text-right">
-                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-colors">
-                      <span class="material-symbols-outlined" data-icon="edit">edit</span>
-                    </button>
-                    <button
-                      class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-error transition-colors">
-                      <span class="material-symbols-outlined" data-icon="delete">delete</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
@@ -270,7 +171,7 @@
                 <option>50 entries</option>
               </select>
             </div>
-            <span>Showing 1 to 10 of 148 entries</span>
+              <span>Showing <?= count($games) ?> games</span>
           </div>
           <div class="flex items-center gap-2">
             <button
@@ -296,8 +197,8 @@
         </div>
       </div>
     </section>
-    <!-- Site Footer -->
-    <?php include '../includes/footer.php'; ?>
+  <!-- Site Footer -->
+  <?php include __DIR__ . '/../includes/footer.php'; ?>
   </main>
 </body>
 

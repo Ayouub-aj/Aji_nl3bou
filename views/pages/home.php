@@ -1,3 +1,10 @@
+<?php
+require_once __DIR__ . '/../../config/init.php';
+use App\Models\GameModel;
+
+$gameModel = new GameModel();
+$games = $gameModel->getAvailableGames();
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -7,19 +14,18 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>The Curated Playroom | Game Catalogue</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="../style/tailwind-config.js"></script>
+    <script src="<?= URL_ROOT ?>/public/style/tailwind-config.js"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link href="../style/style.css" rel="stylesheet" />
-    <script defer="" src="../style/main.js"></script>
+    <link href="<?= URL_ROOT ?>/public/style/style.css" rel="stylesheet" />
 </head>
 
 <body class="bg-surface font-body text-on-surface selection:bg-primary/30">
-    <?php include '../includes/header.php'; ?>
+    <?php include __DIR__ . '/../includes/header.php'; ?>
     <main class="relative min-h-screen">
         <section class="relative w-full h-[400px] flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 z-0">
@@ -110,7 +116,7 @@
                                     <span class="material-symbols-outlined text-[14px] text-primary hidden">check</span>
                                 </div>
                                 <span class="text-on-surface-variant group-hover:text-on-surface transition-colors">Long
-                                    (90m+)</span>
+                                     (90m+)</span>
                             </label>
                         </div>
                     </div>
@@ -128,235 +134,51 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <?php foreach ($games as $game): ?>
                         <div
                             class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:translate-y-[-4px] transition-all duration-300">
                             <div class="h-64 relative overflow-hidden">
-                                <img alt="Scythe board game"
+                                <?php if (!empty($game['image_url'])): ?>
+                                <img alt="<?= htmlspecialchars($game['title']) ?>"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    data-alt="Close up of a steampunk-themed board game with detailed mech miniatures and a snowy map board with deep atmospheric lighting"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn2KxNSl6Et0vLiqCx-PjpQnndaOt0kAibfZFGvqmaZWGas_HD46Lgd9cBljQ0sHS8OgkOQflmsc5iYPFK_7XSytT1e8wQtBDv1TLeORRce6aQYTw6R4ccsxL4ud81C1Y3ifB4NsF6xB613nSN5tKuIWTtvvWPnOisjDoRkOLuQ2LuiwjofPTSEcf_LSsfMHKW42BS3TDvhETljib9cus0629ciXK-wJEwpBZCcF9glI6hcvUiSoUl9iqxw3-3lVjgKgxA9SEE__Q" />
+                                    src="<?= htmlspecialchars($game['image_url']) ?>" />
+                                <?php else: ?>
+                                <div class="w-full h-full bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-6xl text-on-surface-variant">casino</span>
+                                </div>
+                                <?php endif; ?>
                                 <div
                                     class="absolute top-4 right-4 bg-tertiary-container/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
                                     <div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
                                     <span
-                                        class="text-[10px] font-bold text-on-tertiary-container tracking-wider uppercase">Available</span>
+                                        class="text-[10px] font-bold text-on-tertiary-container tracking-wider uppercase"><?= ucfirst($game['status']) ?></span>
                                 </div>
                                 <div class="absolute bottom-4 left-4">
                                     <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold bg-primary-container text-on-primary-container shadow-md">Strategy</span>
+                                        class="px-3 py-1 rounded-full text-xs font-bold bg-primary-container text-on-primary-container shadow-md"><?= htmlspecialchars($game['category']) ?></span>
                                 </div>
                             </div>
                             <div class="p-6">
                                 <h4
                                     class="font-headline text-xl font-extrabold mb-3 group-hover:text-primary transition-colors">
-                                    Scythe</h4>
+                                    <?= htmlspecialchars($game['title']) ?></h4>
                                 <div class="flex items-center gap-6 mb-6">
                                     <div class="flex items-center gap-2 text-on-surface-variant">
                                         <span class="material-symbols-outlined text-lg">group</span>
-                                        <span class="text-sm font-medium">1-5 Players</span>
+                                        <span class="text-sm font-medium"><?= $game['min_players'] ?>-<?= $game['max_players'] ?> Players</span>
                                     </div>
                                     <div class="flex items-center gap-2 text-on-surface-variant">
                                         <span class="material-symbols-outlined text-lg">schedule</span>
-                                        <span class="text-sm font-medium">90-115m</span>
+                                        <span class="text-sm font-medium"><?= $game['duration'] ?>m</span>
                                     </div>
                                 </div>
-                                <button
-                                    class="w-full py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    Reservation 
-                                </button>
-                            </div>
-                        </div>
-                        <div
-                            class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:translate-y-[-4px] transition-all duration-300">
-                            <div class="h-64 relative overflow-hidden">
-                                <img alt="Wingspan board game"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    data-alt="Beautifully illustrated board game cards featuring various bird species with wooden egg tokens in vibrant pastel colors on a textured surface"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAQtXBuMgQwgrvn7UjesqeFAUfGWupHC0jwjAh4Xpwcrg-oZNGrsH1qFo29Xvm_ZYQihf6wnlT9kNC8HbNhdw6LGR4yq7AAoagwO1WyP-BkzL0g3Xe0ZgtnEcIh0NNlw0GeejMtKR54W_CXwSTgoZXEU2Eb81C52_Hm7pUp6hoNdVlGDxmGVxYfZo9fxc3lVz40ifEnjTqzMTR9b-vshDY-oZRwx96g6VFuiGqR2B_fK6jYMXr2TKxsxWGV_2XjCA698XSrWdkeNE" />
-                                <div
-                                    class="absolute top-4 right-4 bg-error-container/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
-                                    <div class="w-2 h-2 rounded-full bg-on-error-container"></div>
-                                    <span
-                                        class="text-[10px] font-bold text-on-error-container tracking-wider uppercase">In
-                                        Use</span>
-                                </div>
-                                <div class="absolute bottom-4 left-4">
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container shadow-md">Family</span>
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <h4
-                                    class="font-headline text-xl font-extrabold mb-3 group-hover:text-primary transition-colors">
-                                    Wingspan</h4>
-                                <div class="flex items-center gap-6 mb-6">
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">group</span>
-                                        <span class="text-sm font-medium">1-5 Players</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">schedule</span>
-                                        <span class="text-sm font-medium">40-70m</span>
-                                    </div>
-                                </div>
-                                <button
-                                    class="w-full py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    Reservation 
-                                </button>
-                            </div>
-                        </div>
-                        <div
-                            class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:translate-y-[-4px] transition-all duration-300">
-                            <div class="h-64 relative overflow-hidden">
-                                <img alt="Root board game"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    data-alt="Stylized forest-themed board game components with cute woodland animal wooden tokens and detailed forest map board under bright even lighting"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYdsPiVbzDEKdfCMEJIv7kscloSYfoVDfamzRC8E-6E70NhiWMvDZQY_QacJQGqZEVwBeY-oav0QNjQ5SlDX3ptOREfV88smr5W0BEzq8bA8OHj_wSr2CoeLwyncv-5uaFVHyTQxKBsCMOshXWESW6YTDHdlr1RHny0cqcSWVohYnjVIKHN81GtkeU38XnaZJ4z22zLDUGmkovt0IvO1SsC3Ma_2HaNmR1ZgTILWPzytRojyoxHf9PK0SSd_ultde7WhF34aytogc" />
-                                <div
-                                    class="absolute top-4 right-4 bg-tertiary-container/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
-                                    <div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
-                                    <span
-                                        class="text-[10px] font-bold text-on-tertiary-container tracking-wider uppercase">Available</span>
-                                </div>
-                                <div class="absolute bottom-4 left-4">
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold bg-primary-container text-on-primary-container shadow-md">Strategy</span>
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <h4
-                                    class="font-headline text-xl font-extrabold mb-3 group-hover:text-primary transition-colors">
-                                    Root</h4>
-                                <div class="flex items-center gap-6 mb-6">
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">group</span>
-                                        <span class="text-sm font-medium">2-4 Players</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">schedule</span>
-                                        <span class="text-sm font-medium">60-90m</span>
-                                    </div>
-                                </div>
-                                <button
-                                    class="w-full py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    Reservation 
-                                </button>
-                            </div>
-                        </div>
-                        <div
-                            class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:translate-y-[-4px] transition-all duration-300">
-                            <div class="h-64 relative overflow-hidden">
-                                <img alt="Catan"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    data-alt="Classic hexagonal resource tiles for board game arranged on a table with small wooden settlement pieces under soft indoor lighting"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv3eZP095jmRJ496wMkTEzYzJiAEKLsmCa1NDREmMndZzDWSK7occGoCCy3kLn0kUawqmYyrvm8pZNjnDZ5f9Qn-3HnPSdbf4_LfGGSiowBWrxKytCR4wHp8xhAsX9KZe9eytRC0EQOztVr_oU3dERXqgcD4qrH5fPUn9mLYlafTmn-cuIjSmOtl_r_ds8LmK9EzsenBhPKIhWUdTAKwdn53hHNDa0B9h3uOL2atm8dgvwREq_VikdjsVKbhdHC5bwOOcxm4iahjs" />
-                                <div
-                                    class="absolute top-4 right-4 bg-tertiary-container/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
-                                    <div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
-                                    <span
-                                        class="text-[10px] font-bold text-on-tertiary-container tracking-wider uppercase">Available</span>
-                                </div>
-                                <div class="absolute bottom-4 left-4">
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container shadow-md">Family</span>
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <h4
-                                    class="font-headline text-xl font-extrabold mb-3 group-hover:text-primary transition-colors">
-                                    Catan</h4>
-                                <div class="flex items-center gap-6 mb-6">
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">group</span>
-                                        <span class="text-sm font-medium">3-4 Players</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">schedule</span>
-                                        <span class="text-sm font-medium">60-120m</span>
-                                    </div>
-                                </div>
-                                <a href="booking_client.php"
+                                <a href="<?= URL_ROOT ?>/booking?game_id=<?= $game['id'] ?>"
                                     class="w-full block text-center py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
                                     Reservation 
                                 </a>
                             </div>
                         </div>
-                        <div
-                            class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:translate-y-[-4px] transition-all duration-300">
-                            <div class="h-64 relative overflow-hidden">
-                                <img alt="Gloomhaven"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    data-alt="Enormous heavy board game box with dark fantasy illustrations and hundreds of cardboard tokens and small character figures"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuABwGOZtu21pLXM99vDQ13aHnDcIpCWlq0gPwJ37wAOVIAGQwgSxqc1UvvfKCEIFgLr1zL-_zDfZ9xdl8-qVwqxbtYSC5NcVFlYPFQl12TL9UKMSxDkGxuklZtpLDqm9GikRgu3YYv8D4U_F_ktu8Y9Z1LjRWees-Oyht2wAwuK5BMMaTc9eGcmDAU19HRMMDdTTw5HxkoJwGlCbUeNAXwLknyA8CiqBtpH9lg1CxspNoR0sPA0E5MKI48RVR4eL0A8IpiUN81CFUQ" />
-                                <div
-                                    class="absolute top-4 right-4 bg-tertiary-container/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
-                                    <div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
-                                    <span
-                                        class="text-[10px] font-bold text-on-tertiary-container tracking-wider uppercase">Available</span>
-                                </div>
-                                <div class="absolute bottom-4 left-4">
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold bg-surface-container-highest text-on-surface-variant shadow-md">Experts</span>
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <h4
-                                    class="font-headline text-xl font-extrabold mb-3 group-hover:text-primary transition-colors">
-                                    Gloomhaven</h4>
-                                <div class="flex items-center gap-6 mb-6">
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">group</span>
-                                        <span class="text-sm font-medium">1-4 Players</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">schedule</span>
-                                        <span class="text-sm font-medium">60-120m</span>
-                                    </div>
-                                </div>
-                                <a href="booking_client.php"
-                                    class="w-full block text-center py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    Reservation 
-                                </a>
-                            </div>
-                        </div>
-                        <div
-                            class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:translate-y-[-4px] transition-all duration-300">
-                            <div class="h-64 relative overflow-hidden">
-                                <img alt="Azul"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    data-alt="Colorful patterned square tiles reminiscent of Moroccan ceramics arranged in an artistic circle on a white surface with soft shadows"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr_uAuQuoQpmV5h41im84unxTCTRk0wwIqpf4MQI2t9MwJ_dncgybNpMoRAM2dz2Y148AGyadtA08HhpAsAIdmYUMKNJQYaRrtLUz4rRsW2l9Fmfbf4BgHIdTBuQ58yCIFt4r8LDK_ROQrVCFFyHIYxXVO73yxB3xEY7eljCvUHO6t3APAgYt3XmGAIAhRcziqDgFgwNwpcM4YDwgBwJvVQtxiRzh9jzmg-zFGu2NQN85_DNnOjqUNUjW9H5FMRBoRHv9e6yHMZAE" />
-                                <div
-                                    class="absolute top-4 right-4 bg-tertiary-container/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
-                                    <div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
-                                    <span
-                                        class="text-[10px] font-bold text-on-tertiary-container tracking-wider uppercase">Available</span>
-                                </div>
-                                <div class="absolute bottom-4 left-4">
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container shadow-md">Family</span>
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <h4
-                                    class="font-headline text-xl font-extrabold mb-3 group-hover:text-primary transition-colors">
-                                    Azul</h4>
-                                <div class="flex items-center gap-6 mb-6">
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">group</span>
-                                        <span class="text-sm font-medium">2-4 Players</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg">schedule</span>
-                                        <span class="text-sm font-medium">30-45m</span>
-                                    </div>
-                                </div>
-                                <a href="booking_client.php"
-                                    class="w-full block text-center py-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-bold rounded-lg transition-all active:scale-95">
-                                    Reservation 
-                                </a>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="mt-12 flex justify-center">
                         <nav class="flex gap-2">
@@ -383,7 +205,7 @@
             </div>
         </section>
     </main>
-    <?php include '../includes/footer.php'; ?>
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
     <button
         class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-b from-primary to-primary-dim text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50 active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">add</span>
