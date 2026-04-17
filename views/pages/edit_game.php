@@ -80,7 +80,7 @@ $categories = $categories ?? [];
                             </button>
                         </a>
                         <button type="submit"
-                            class="px-8 py-2.5 rounded-lg font-bold text-sm text-on-primary bg-gradient-to-v from-primary to-primary-dim shadow-[0_0_20px_rgba(182,160,255,0.3)] hover:shadow-[0_0_25px_rgba(182,160,255,0.5)] transition-all">
+                            class="px-8 py-2.5 rounded-lg font-bold text-sm text-white bg-gradient-to-v from-primary to-primary-dim shadow-[0_0_20px_rgba(182,160,255,0.3)] hover:shadow-[0_0_25px_rgba(182,160,255,0.5)] transition-all">
                             Update Game
                         </button>
                     </div>
