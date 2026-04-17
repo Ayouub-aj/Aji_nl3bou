@@ -25,7 +25,7 @@ try {
 
 // ── Router ───────────────────────────────────────────────────────────────────
 
-use App\Controllers\RouterController;
+use App\core\RouterController;
 
 $router = new RouterController();
 
