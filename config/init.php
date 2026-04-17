@@ -4,6 +4,9 @@
  * Handles Composer autoloader and Database connection.
  */
 
+// Load Configuration
+require_once __DIR__ . '/config.php';
+
 // Load Composer autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
 

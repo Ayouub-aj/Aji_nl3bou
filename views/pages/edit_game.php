@@ -12,14 +12,14 @@ $categories = $categories ?? [];
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Edit Game | The Curated Playroom</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URLROOT; ?>/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link href="/dashboard/Aji_nl3bou/public/style/style.css" rel="stylesheet" />
+    <link href="<?= URLROOT; ?>/public/style/style.css" rel="stylesheet" />
 </head>
 
 <body class="bg-surface text-on-surface min-h-screen flex">
@@ -61,19 +61,19 @@ $categories = $categories ?? [];
         </header>
         <!-- Content Area -->
         <div class="mt-16 p-10 max-w-5xl mx-auto w-full">
-            <form action="/dashboard/Aji_nl3bou/games/update/<?= $game['id'] ?? '' ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= URLROOT; ?>/games/update/<?= $game['id'] ?? '' ?>" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                 <div class="flex items-center justify-between mb-10">
                     <div>
                         <nav class="flex items-center gap-2 text-xs text-gray-500 mb-2 font-bold uppercase tracking-wider">
-                            <a href="/dashboard/Aji_nl3bou/inventory" class="hover:text-primary">Inventory</a>
+                            <a href="<?= URLROOT; ?>/inventory" class="hover:text-primary">Inventory</a>
                             <span class="material-symbols-outlined text-[14px]">chevron_right</span>
                             <span class="text-primary">Edit Game</span>
                         </nav>
                         <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Edit Game</h1>
                     </div>
                     <div class="flex gap-4">
-                        <a href="/dashboard/Aji_nl3bou/inventory">
+                        <a href="<?= URLROOT; ?>/inventory">
                             <button type="button"
                                 class="px-6 py-2.5 rounded-lg font-bold text-sm text-gray-400 hover:text-white border border-outline-variant/15 hover:bg-surface-container-high transition-all">
                                 Cancel

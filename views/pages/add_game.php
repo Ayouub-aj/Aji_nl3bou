@@ -10,14 +10,14 @@ require_once __DIR__ . '/../../config/init.php';
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Add New Game | The Curated Playroom</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URLROOT; ?>/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link href="/dashboard/Aji_nl3bou/public/style/style.css" rel="stylesheet" />
+    <link href="<?= URLROOT; ?>/public/style/style.css" rel="stylesheet" />
 </head>
 
 <body class="bg-surface text-on-surface min-h-screen flex">
@@ -59,7 +59,7 @@ require_once __DIR__ . '/../../config/init.php';
         </header>
         <!-- Content Area -->
         <div class="mt-16 p-10 max-w-5xl mx-auto w-full">
-            <form action="/dashboard/Aji_nl3bou/games/add" method="POST" enctype="multipart/form-data">
+            <form action="<?= URLROOT; ?>/games/add" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                 <div class="flex items-center justify-between mb-10">
                     <div>

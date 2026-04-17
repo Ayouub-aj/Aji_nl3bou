@@ -14,13 +14,13 @@ $games = $games ?? [];
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>The Curated Playroom | Make a Reservation</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+  <script src="<?= URLROOT; ?>/public/style/tailwind-config.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+  <link rel="stylesheet" href="<?= URLROOT; ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface selection:bg-primary/30">
@@ -110,7 +110,7 @@ $games = $games ?? [];
         </div>
       </div>
       <div class="lg:col-span-5">
-        <form action="/dashboard/Aji_nl3bou/booking" method="POST"
+        <form action="<?= URLROOT; ?>/booking" method="POST"
           class="sticky top-28 glass-panel border border-outline-variant/15 p-8 rounded-2xl shadow-2xl flex flex-col gap-8">
           <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
           <?php if ($selectedGame): ?>

@@ -178,7 +178,7 @@ class TableController extends BaseController
     {
         // Only allow POST requests for this action
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/tables');
+            header('Location: ' . \URLROOT . '/tables');
             exit;
         }
         
@@ -195,7 +195,7 @@ class TableController extends BaseController
         $this->tableModel->updateTableStatus($table_id, $status);
         
         // Redirect back to tables page
-        header('Location: /dashboard/Aji_nl3bou/tables');
+        header('Location: ' . URLROOT . '/tables');
         exit;
     }
 }

@@ -10,14 +10,14 @@ require_once __DIR__ . '/../../config/init.php';
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>The Playroom | Client Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URLROOT; ?>/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+    <link rel="stylesheet" href="<?= URLROOT; ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface antialiased overflow-x-hidden">
@@ -120,7 +120,7 @@ require_once __DIR__ . '/../../config/init.php';
                         <div class="col-span-2 bg-surface-container-high rounded-xl p-8 text-center">
                             <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-4">event_busy</span>
                             <p class="text-on-surface-variant">No reservations yet.</p>
-                            <a href="/dashboard/Aji_nl3bou/booking" class="inline-block mt-4 px-6 py-2 bg-primary text-on-primary rounded-lg font-bold hover:bg-primary-dim transition-colors">
+                            <a href="<?= URLROOT; ?>/booking" class="inline-block mt-4 px-6 py-2 bg-primary text-on-primary rounded-lg font-bold hover:bg-primary-dim transition-colors">
                                 Make a Reservation
                             </a>
                         </div>

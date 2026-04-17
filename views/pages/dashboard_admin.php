@@ -10,13 +10,13 @@ require_once __DIR__ . '/../../config/init.php';
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Admin Portal | The Curated Playroom</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+    <script src="<?= URLROOT; ?>/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+    <link rel="stylesheet" href="<?= URLROOT; ?>/public/style/style.css">
 </head>
 
 <body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">

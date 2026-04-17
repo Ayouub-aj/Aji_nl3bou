@@ -203,8 +203,8 @@ class RouterController
         $uri = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
 
         // Strip base path if application is in subdirectory
-        $basePath = '/dashboard/Aji_nl3bou';
-        if (strpos($uri, $basePath) === 0) {
+        $basePath = \URLROOT;
+        if (!empty($basePath) && strpos($uri, $basePath) === 0) {
             $uri = substr($uri, strlen($basePath));
         }
         
@@ -232,7 +232,7 @@ class RouterController
         http_response_code(404);
         echo "<h1>404 — Page Not Found</h1>";
         echo "<p>The page you're looking for doesn't exist.</p>";
-        echo "<p><a href='/dashboard/Aji_nl3bou/'>Go to Home</a></p>";
+        echo "<p><a href='" . URLROOT . "/'>Go to Home</a></p>";
     }
 
     /**
@@ -280,9 +280,9 @@ class RouterController
         if (class_exists($class)) {
             $controller = new $class();
             
-            // If we have parameters, pass them to the action
+            // If we have parameters, pass them to the action by position
             if (!empty($params)) {
-                $controller->$action(...$params);
+                $controller->$action(...array_values($params));
             } else {
                 $controller->$action();
             }

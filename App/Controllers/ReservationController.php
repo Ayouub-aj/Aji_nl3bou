@@ -78,7 +78,7 @@ class ReservationController extends BaseController
     public function book(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/booking');
+            header('Location: ' . \URLROOT . '/booking');
             exit;
         }
         
@@ -93,7 +93,7 @@ class ReservationController extends BaseController
         // Basic validation
         if (empty($client_name) || empty($client_phone) || empty($date) || empty($time)) {
             $_SESSION['error'] = 'Please fill in all required fields.';
-            header('Location: /dashboard/Aji_nl3bou/booking');
+            header('Location: ' . \URLROOT . '/booking');
             exit;
         }
         
@@ -102,7 +102,7 @@ class ReservationController extends BaseController
         
         if (empty($availableTables)) {
             $_SESSION['error'] = 'No tables available for this time. Please try a different time or date.';
-            header('Location: /dashboard/Aji_nl3bou/booking');
+            header('Location: ' . \URLROOT . '/booking');
             exit;
         }
         
@@ -147,7 +147,7 @@ class ReservationController extends BaseController
         
         if (!$reservation_id) {
             $_SESSION['error'] = 'Failed to create reservation. Please try again.';
-            header('Location: /dashboard/Aji_nl3bou/booking');
+            header('Location: ' . \URLROOT . '/booking');
             exit;
         }
         
@@ -165,7 +165,7 @@ class ReservationController extends BaseController
             $_SESSION['pending_reservation_id'] = $reservation_id;
             $_SESSION['is_new_user'] = true;
             
-            header('Location: /dashboard/Aji_nl3bou/add-password');
+            header('Location: ' . \URLROOT . '/add-password');
             exit;
         } else {
             // Existing user - log them in and go to dashboard
@@ -175,7 +175,7 @@ class ReservationController extends BaseController
             $_SESSION['logged_in'] = true;
             $_SESSION['pending_reservation_id'] = $reservation_id;
             
-            header('Location: /dashboard/Aji_nl3bou/dashboard/client');
+            header('Location: ' . \URLROOT . '/dashboard/client');
             exit;
         }
     }
@@ -218,7 +218,7 @@ class ReservationController extends BaseController
     public function store(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /dashboard/Aji_nl3bou/reservations/add');
+            header('Location: ' . \URLROOT . '/reservations/add');
             exit;
         }
         
@@ -244,7 +244,7 @@ class ReservationController extends BaseController
         $success = $this->reservationModel->create($data);
         
         if ($success) {
-            header('Location: /dashboard/Aji_nl3bou/reservations?success=added');
+            header('Location: ' . \URLROOT . '/reservations?success=added');
             exit;
         } else {
             $data['tables'] = $this->tableModel->getAllTables();
@@ -266,7 +266,7 @@ class ReservationController extends BaseController
         $status = $_POST['status'] ?? '';
         $this->reservationModel->updateStatus($reservation_id, $status);
         
-        header('Location: /dashboard/Aji_nl3bou/reservations');
+        header('Location: ' . \URLROOT . '/reservations');
         exit;
     }
 
@@ -281,7 +281,7 @@ class ReservationController extends BaseController
         
         $this->reservationModel->cancel($reservation_id);
         
-        header('Location: /dashboard/Aji_nl3bou/reservations');
+        header('Location: ' . \URLROOT . '/reservations');
         exit;
     }
 
@@ -296,7 +296,7 @@ class ReservationController extends BaseController
         
         $this->reservationModel->confirm($reservation_id);
         
-        header('Location: /dashboard/Aji_nl3bou/reservations');
+        header('Location: ' . \URLROOT . '/reservations');
         exit;
     }
 
@@ -311,7 +311,7 @@ class ReservationController extends BaseController
         
         $this->reservationModel->delete($reservation_id);
         
-        header('Location: /dashboard/Aji_nl3bou/reservations');
+        header('Location: ' . \URLROOT . '/reservations');
         exit;
     }
 

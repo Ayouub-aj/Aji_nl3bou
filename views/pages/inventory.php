@@ -15,13 +15,13 @@ $totalGames = count($games);
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Admin Game Inventory | The Curated Playroom</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
+  <script src="<?= URLROOT; ?>/public/style/tailwind-config.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
+  <link rel="stylesheet" href="<?= URLROOT; ?>/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface flex min-h-screen">
@@ -54,7 +54,7 @@ $totalGames = count($games);
           <span class="material-symbols-outlined text-xl">filter_list</span>
           <span class="text-sm font-medium">Filter</span>
         </button>
-        <a href="/dashboard/Aji_nl3bou/games/add">
+        <a href="<?= URLROOT; ?>/games/add">
           <button
             class="flex items-center gap-2 bg-gradient-to-b from-primary to-primary-dim text-on-primary-fixed px-6 py-2.5 rounded-lg font-bold shadow-lg shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] transition-all">
             <span class="material-symbols-outlined">add_circle</span>
@@ -131,12 +131,12 @@ $totalGames = count($games);
                 </td>
                 <td class="px-6 py-4 text-right">
                   <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <a href="/dashboard/Aji_nl3bou/games/edit/<?= $game['id'] ?>">
+                    <a href="<?= URLROOT; ?>/games/edit/<?= $game['id'] ?>">
                       <button class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-colors">
                         <span class="material-symbols-outlined">edit</span>
                       </button>
                     </a>
-                    <form action="/dashboard/Aji_nl3bou/games/delete/<?= $game['id'] ?>" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this game?');">
+                    <form action="<?= URLROOT; ?>/games/delete/<?= $game['id'] ?>" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this game?');">
                       <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                       <button type="submit" class="p-2 rounded-lg hover:bg-surface-bright text-on-surface-variant hover:text-error transition-colors">
                         <span class="material-symbols-outlined">delete</span>
