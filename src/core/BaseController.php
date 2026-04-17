@@ -11,6 +11,13 @@ namespace App\Core;
 abstract class BaseController
 {
     /**
+     * Constructor - Can be overridden by child classes
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * Load a model class
      * 
      * @param string $model Name of the model class
@@ -36,7 +43,7 @@ abstract class BaseController
         // Extract data to make variables available in the view context
         extract($data);
 
-        $viewFile = __DIR__ . "/../../../views/" . $view . ".php";
+        $viewFile = __DIR__ . "/../../views/" . $view . ".php";
 
         if (file_exists($viewFile)) {
             require_once $viewFile;

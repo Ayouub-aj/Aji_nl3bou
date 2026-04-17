@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . '/../../config/init.php';
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -7,25 +10,21 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>The Playroom | Client Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="../style/style.css">
-    <script src="../style/tailwind-config.js"></script>
-    <script src="../style/main.js" defer></script>
+    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface antialiased overflow-x-hidden">
     <div class="flex min-h-screen">
         <!-- SideNavBar -->
-        <?php include '../includes/client_side_menu.php'; ?>
-        <main class="admin-main flex-1 md:ml-64 p-4 md:p-10 mb-24 md:mb-0">
+        <?php include __DIR__ . '/../includes/client_side_menu.php'; ?>
+        <main class="admin-main flex-1 lg:ml-64 p-4 md:p-10 mb-24 md:mb-0">
             <!-- Header section with Tonal Layering -->
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
                 <div class="flex items-center gap-4">
@@ -34,8 +33,13 @@
                         <span class="material-symbols-outlined">menu</span>
                     </button>
                     <div>
+                        <?php if (isset($welcome_message)): ?>
+                        <div class="bg-primary-container/20 border border-primary/30 rounded-lg px-4 py-2 mb-4">
+                            <p class="text-primary text-sm"><?= htmlspecialchars($welcome_message) ?></p>
+                        </div>
+                        <?php endif; ?>
                         <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-2">Welcome
-                            back, Strategist.</h2>
+                            back, <?= htmlspecialchars($user['username'] ?? 'Strategist') ?>.</h2>
                         <p class="text-on-surface-variant text-lg">Your next move is waiting at Aji L3bo.</p>
                     </div>
                 </div>
@@ -63,66 +67,64 @@
                             All</button>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <!-- Reservation Card 1 -->
-                        <div
-                            class="bg-surface-container-high rounded-xl overflow-hidden flex items-stretch border border-outline-variant/5">
-                            <div class="w-24 bg-primary-container/20 flex flex-col items-center justify-center p-4">
-                                <span
-                                    class="text-on-primary-container text-xs font-bold uppercase tracking-widest">Oct</span>
-                                <span class="text-on-primary-container text-3xl font-bold">24</span>
-                            </div>
-                            <div class="flex-1 p-6 flex flex-col justify-center">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h4 class="font-bold text-lg">The Strategy Nook</h4>
-                                    <span
-                                        class="bg-tertiary-container/10 text-tertiary px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Confirmed</span>
+                        <?php if (!empty($reservations)): ?>
+                            <?php foreach ($reservations as $res): ?>
+                            <?php 
+                            $date = new DateTime($res['date']);
+                            $month = $date->format('M');
+                            $day = $date->format('d');
+                            $statusClass = match($res['status']) {
+                                'confirmed' => 'bg-tertiary-container/10 text-tertiary',
+                                'pending' => 'bg-primary-container/10 text-primary',
+                                'canceled' => 'bg-error-container/10 text-error',
+                                default => 'bg-surface-container text-on-surface-variant'
+                            };
+                            ?>
+                            <div
+                                class="bg-surface-container-high rounded-xl overflow-hidden flex items-stretch border border-outline-variant/5 <?= (isset($pending_reservation_id) && $pending_reservation_id == $res['id']) ? 'ring-2 ring-primary' : '' ?>">
+                                <div class="w-24 bg-primary-container/20 flex flex-col items-center justify-center p-4">
+                                    <span class="text-on-primary-container text-xs font-bold uppercase tracking-widest"><?= $month ?></span>
+                                    <span class="text-on-primary-container text-3xl font-bold"><?= $day ?></span>
                                 </div>
-                                <div class="flex gap-4 text-sm text-on-surface-variant">
-                                    <span class="flex items-center gap-1"><span
-                                            class="material-symbols-outlined text-sm"
-                                            data-icon="schedule">schedule</span> 19:30</span>
-                                    <span class="flex items-center gap-1"><span
-                                            class="material-symbols-outlined text-sm" data-icon="groups">groups</span> 4
-                                        Players</span>
+                                <div class="flex-1 p-6 flex flex-col justify-center">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-bold text-lg"><?= htmlspecialchars($res['table_name'] ?? 'Table #' . $res['table_id']) ?></h4>
+                                        <span class="<?= $statusClass ?> px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"><?= ucfirst($res['status']) ?></span>
+                                    </div>
+                                    <div class="flex gap-4 text-sm text-on-surface-variant mb-2">
+                                        <span class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-sm">schedule</span> 
+                                            <?= date('H:i', strtotime($res['time'])) ?>
+                                        </span>
+                                        <span class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-sm">groups</span> 
+                                            <?= $res['players_count'] ?? 4 ?> Players
+                                        </span>
+                                    </div>
+                                    <?php if (!empty($res['game_title'])): ?>
+                                    <div class="text-sm text-on-surface-variant">
+                                        <span class="material-symbols-outlined text-sm align-middle mr-1">casino</span>
+                                        <?= htmlspecialchars($res['game_title']) ?>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="p-6 flex items-center">
+                                    <button
+                                        class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center hover:bg-surface-bright transition-colors">
+                                        <span class="material-symbols-outlined">more_vert</span>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="p-6 flex items-center">
-                                <button
-                                    class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center hover:bg-surface-bright transition-colors">
-                                    <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
-                                </button>
-                            </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                        <div class="col-span-2 bg-surface-container-high rounded-xl p-8 text-center">
+                            <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-4">event_busy</span>
+                            <p class="text-on-surface-variant">No reservations yet.</p>
+                            <a href="/dashboard/Aji_nl3bou/booking" class="inline-block mt-4 px-6 py-2 bg-primary text-on-primary rounded-lg font-bold hover:bg-primary-dim transition-colors">
+                                Make a Reservation
+                            </a>
                         </div>
-                        <!-- Reservation Card 2 -->
-                        <div
-                            class="bg-surface-container-high rounded-xl overflow-hidden flex items-stretch border border-outline-variant/5">
-                            <div class="w-24 bg-secondary-container/20 flex flex-col items-center justify-center p-4">
-                                <span
-                                    class="text-on-secondary-container text-xs font-bold uppercase tracking-widest">Oct</span>
-                                <span class="text-on-secondary-container text-3xl font-bold">28</span>
-                            </div>
-                            <div class="flex-1 p-6 flex flex-col justify-center">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h4 class="font-bold text-lg">Main Hall - Table 4</h4>
-                                    <span
-                                        class="bg-secondary-container/10 text-secondary px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Confirmed</span>
-                                </div>
-                                <div class="flex gap-4 text-sm text-on-surface-variant">
-                                    <span class="flex items-center gap-1"><span
-                                            class="material-symbols-outlined text-sm"
-                                            data-icon="schedule">schedule</span> 14:00</span>
-                                    <span class="flex items-center gap-1"><span
-                                            class="material-symbols-outlined text-sm" data-icon="groups">groups</span> 2
-                                        Players</span>
-                                </div>
-                            </div>
-                            <div class="p-6 flex items-center">
-                                <button
-                                    class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center hover:bg-surface-bright transition-colors">
-                                    <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
-                                </button>
-                            </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </section>
                 <!-- Recently Played - Horizontal Scrollable Area -->
@@ -279,7 +281,7 @@
         </main>
         <!-- BottomNavBar (Mobile only) -->
         <nav
-            class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 bg-[#131313]/80 backdrop-blur-xl shadow-[0_-8px_32px_rgba(0,0,0,0.5)] rounded-t-[2rem]">
+            class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 bg-[#131313]/80 backdrop-blur-xl shadow-[0_-8px_32px_rgba(0,0,0,0.5)] rounded-t-[2rem]">
             <!-- Home: Active -->
             <a class="flex flex-col items-center justify-center bg-[#b6a0ff] text-[#0e0e0e] rounded-2xl p-2 h-12 w-12 transition-all active:scale-90"
                 href="#">

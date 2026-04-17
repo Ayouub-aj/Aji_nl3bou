@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../../app/core/Security.php'; ?>
+<?php
+require_once __DIR__ . '/../../config/init.php';
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -8,23 +10,19 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>The Curated Playroom | New Reservation</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="../style/style.css">
-    <script src="../style/tailwind-config.js"></script>
-    <script src="../style/main.js" defer></script>
+    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
 </head>
 
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary min-h-screen flex">
     <!-- SideNavBar -->
-    <?php include '../includes/side_menu.php'; ?>
+    <?php include __DIR__ . '/../includes/side_menu.php'; ?>
     <main class="admin-main lg:ml-64 flex-1 flex flex-col min-h-screen py-12 px-6 md:px-12 lg:px-24 bg-surface">
         <div class="max-w-6xl mx-auto">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
@@ -46,7 +44,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div class="lg:col-span-7 space-y-8">
                     <form class="space-y-10" method="POST" action="add_reservation.php">
-                        <input type="hidden" name="csrf_token" value="<?php echo Security::generateCSRFToken(); ?>">
+                        <input type="hidden" name="csrf_token" value="<?php echo \App\Core\Security::generateCSRFToken(); ?>">
                         <section class="bg-surface-container-low p-8 rounded-xl">
                             <h3
                                 class="text-secondary font-headline font-bold text-sm uppercase tracking-widest mb-6 flex items-center gap-2">

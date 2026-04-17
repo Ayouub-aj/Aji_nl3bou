@@ -1,3 +1,21 @@
 RewriteEngine On
-RewriteRule ^$ public/ [L]
-RewriteRule ^(.*)$ public/$1 [L]
+
+# Set the base path for the subdirectory
+RewriteBase /dashboard/Aji_nl3bou/
+
+# If the request is for a real file in public/, serve it directly
+RewriteCond %{REQUEST_URI} ^/dashboard/Aji_nl3bou/public/
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^public/(.*)$ public/$1 [L]
+
+# If the request is for a real file in vendor/, serve it directly
+RewriteCond %{REQUEST_URI} ^/dashboard/Aji_nl3bou/vendor/
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^vendor/(.*)$ vendor/$1 [L]
+
+# Serve real files and directories as-is (CSS, JS, images, fonts, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route everything else through the front controller
+RewriteRule ^ index.php [L]

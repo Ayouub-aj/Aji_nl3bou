@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . '/../../config/init.php';
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -7,18 +10,17 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Admin Reservations | The Curated Playroom</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="../style/tailwind-config.js"></script>
+    <script src="/dashboard/Aji_nl3bou/public/style/tailwind-config.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="../style/style.css">
-    <script src="../style/main.js" defer></script>
+    <link rel="stylesheet" href="/dashboard/Aji_nl3bou/public/style/style.css">
 </head>
 
-<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
-    <?php include '../includes/side_menu.php'; ?>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <?php include __DIR__ . '/../includes/side_menu.php'; ?>
     <main class="lg:ml-64 admin-main min-h-screen p-8 bg-background">
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
             <div class="flex items-center gap-4">
@@ -112,165 +114,7 @@
                                     Confirmed
                                 </span>
                             </td>
-                            <td class="px-6 py-5 text-right">
-                                <div
-                                    class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button
-                                        class="flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary-container text-xs font-black rounded-lg hover:brightness-110 active:scale-95 transition-all">
-                                        <span class="material-symbols-outlined text-sm" data-icon="login">login</span>
-                                        CHECK-IN
-                                    </button>
-                                    <button
-                                        class="p-2 hover:bg-surface-bright rounded-lg transition-colors text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
-                                    </button>
-                                    <button
-                                        class="p-2 hover:bg-error-container/20 rounded-lg transition-colors text-error">
-                                        <span class="material-symbols-outlined text-lg" data-icon="cancel">cancel</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-high/50 transition-colors group bg-primary/5">
-                            <td class="px-6 py-5">
-                                <div class="flex flex-col">
-                                    <span class="text-on-surface font-bold">13:00</span>
-                                    <span class="text-[10px] text-tertiary uppercase font-bold tracking-tighter">Active
-                                        Now</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-3">
-                                    <img alt="Guest" class="w-8 h-8 rounded-full"
-                                        data-alt="round avatar of a woman with curly hair and a joyful expression"
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxZ2teNoVcE6V6t6FhY8gk4oidHWyH78SeExLzRpeqNp_B-lEqe1Ma5iFqqwzl3DHhDCHdiWmJdE6STvKL6jSmMwhKJKUQGjM-xXgs5Gp3X5ZMYaObsru-6KHpfLV4S9nmsDYk6giAY1t1-W7n2mOkYe0FDm1UBiyS16dlNwpQvCllEA7YIDiOX9lKZbtOcjPpenIfb_r4J3l9kaQfIfCBSObepzag8WHrgBgVkYKx14AaN1V3eWCNZoE-OlyPOLImcI0zdXWvHM4" />
-                                    <div class="flex flex-col">
-                                        <span class="text-on-surface font-semibold">Sarah Jenkins</span>
-                                        <span class="text-xs text-on-surface-variant">+1 555-0123</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span
-                                    class="px-2 py-1 rounded bg-surface-container-highest text-on-surface text-sm font-medium">2
-                                    People</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-secondary text-lg"
-                                        data-icon="family_history">family_history</span>
-                                    <span class="text-on-surface">Wingspan</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-tertiary-container text-on-tertiary-container">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary mr-1.5"></span>
-                                    Seated
-                                </span>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <div class="flex items-center justify-end gap-2">
-                                    <button
-                                        class="flex items-center gap-1.5 px-4 py-2 border border-primary/30 text-primary text-xs font-black rounded-lg hover:bg-primary/10 transition-all">
-                                        <span class="material-symbols-outlined text-sm" data-icon="timer">timer</span>
-                                        END SESSION
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-high/50 transition-colors group">
-                            <td class="px-6 py-5">
-                                <div class="flex flex-col">
-                                    <span class="text-on-surface font-bold">15:45</span>
-                                    <span
-                                        class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter">Later</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center border border-outline-variant/20 text-xs font-bold text-tertiary">
-                                        DK</div>
-                                    <div class="flex flex-col">
-                                        <span class="text-on-surface font-semibold">David Kim</span>
-                                        <span class="text-xs text-on-surface-variant">dkim_99@outlook.com</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span
-                                    class="px-2 py-1 rounded bg-surface-container-highest text-on-surface text-sm font-medium">6
-                                    People</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-2 text-on-surface-variant">
-                                    <span class="material-symbols-outlined text-lg" data-icon="casino">casino</span>
-                                    <span class="italic text-sm">Undecided</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-surface-container-highest text-on-surface-variant border border-outline-variant/20">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-outline mr-1.5"></span>
-                                    Pending
-                                </span>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <div
-                                    class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button
-                                        class="px-3 py-1.5 bg-tertiary text-on-tertiary-container text-[10px] font-black rounded hover:brightness-110">CONFIRM</button>
-                                    <button
-                                        class="p-2 hover:bg-surface-bright rounded-lg transition-colors text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-lg"
-                                            data-icon="more_vert">more_vert</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-high/50 transition-colors group opacity-60">
-                            <td class="px-6 py-5">
-                                <div class="flex flex-col">
-                                    <span class="text-on-surface font-bold">12:15</span>
-                                    <span
-                                        class="text-[10px] text-error uppercase font-bold tracking-tighter">Missed</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center border border-outline-variant/20 text-xs font-bold text-error">
-                                        RR</div>
-                                    <div class="flex flex-col">
-                                        <span class="text-on-surface font-semibold">Robert Ross</span>
-                                        <span class="text-xs text-on-surface-variant">rob.ross@domain.com</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span
-                                    class="px-2 py-1 rounded bg-surface-container-highest text-on-surface text-sm font-medium">3
-                                    People</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-primary text-lg"
-                                        data-icon="extension">extension</span>
-                                    <span class="text-on-surface">Catan</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-error-container/20 text-error">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-error mr-1.5"></span>
-                                    Canceled
-                                </span>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <span class="text-[10px] text-on-surface-variant uppercase font-black">Archive</span>
-                            </td>
-                        </tr>
+                        </tr>           
                     </tbody>
                 </table>
             </div>
@@ -291,7 +135,7 @@
             </div>
         </div>
     </main>
-    <?php include '../includes/footer.php'; ?>
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
 </body>
 
 </html>

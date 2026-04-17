@@ -46,3 +46,4 @@ auth.json
 # Project specific
 /public/build/
 /public/storage/
+/public/uploads/

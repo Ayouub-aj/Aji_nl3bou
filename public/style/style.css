@@ -1,0 +1,134 @@
+/* Custom CSS Variables for Tailwind */
+:root {
+    --color-surface: #0e0e0e;
+    --color-surface-container: #1a1a1a;
+    --color-surface-container-low: #141414;
+    --color-surface-container-high: #242424;
+    --color-surface-container-highest: #2a2a2a;
+    --color-on-surface: #ffffff;
+    --color-on-surface-variant: #9ca3af;
+    --color-primary: #b6a0ff;
+    --color-primary-dim: #9b85e8;
+    --color-primary-container: #3d3654;
+    --color-on-primary: #1a1a1a;
+    --color-on-primary-container: #e8e0ff;
+    --color-secondary: #6ee7b7;
+    --color-secondary-dim: #34d399;
+    --color-secondary-container: #1a3d2e;
+    --color-on-secondary: #0e0e0e;
+    --color-tertiary: #b5ffc6;
+    --color-tertiary-container: #1a3d25;
+    --color-on-tertiary: #0e0e0e;
+    --color-error: #fca5a5;
+    --color-error-container: #3d1a1a;
+    --color-on-error: #1a1a1a;
+    --color-outline: #6b7280;
+    --color-outline-variant: #4b5563;
+}
+
+/* Font families */
+.font-headline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Glass panel effect */
+.glass-panel {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Glass card */
+.glass-card {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Login hero background */
+.bg-login-hero {
+    background: 
+        linear-gradient(to bottom, rgba(14, 14, 14, 0.9), rgba(14, 14, 14, 0.95)),
+        url('https://images.unsplash.com/photo-1610890716171-6b1c9f2cd9be?w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Sidebar styles */
+.sidebar {
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98));
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Admin main content offset */
+.admin-main {
+    margin-left: 16rem;
+}
+
+@media (max-width: 1024px) {
+    .admin-main {
+        margin-left: 0;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-surface-container-high);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-surface-container-highest);
+}
+
+/* Animation utilities */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(182, 160, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(182, 160, 255, 0.5);
+    }
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Primary gradient */
+.primary-gradient {
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-dim));
+}
+
+/* Background utility */
+.bg-background {
+    background-color: var(--color-surface);
+}
+
+/* Text outline color */
+.text-outline {
+    color: var(--color-outline);
+}
+
+/* Error text colors */
+.text-error {
+    color: var(--color-error);
+}
+
+/* Surface container bright */
+.bg-surface-bright {
+    background-color: #333333;
+}
