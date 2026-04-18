@@ -5,6 +5,9 @@
  * This file defines constants used throughout the application.
  */
 
+// Set Timezone to match locale (+01:00)
+date_default_timezone_set('Africa/Casablanca');
+
 // App Root - The root of the application on the filesystem
 define('APPROOT', dirname(dirname(__FILE__)));
 
@@ -19,7 +22,7 @@ $rootPath = str_replace('\\', '/', dirname($scriptName));
 // Remove trailing slash if it exists
 $urlRoot = rtrim($rootPath, '/');
 
-define('URLROOT', $urlRoot);
+define('URL_ROOT', $urlRoot);
 
 // Site Name
 define('SITENAME', 'Aji L3bo');

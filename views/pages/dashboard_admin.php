@@ -105,14 +105,10 @@ require_once __DIR__ . '/../../config/init.php';
             <?php else: ?>
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 <?php foreach ($activeSessions as $session): ?>
-                <?php
-                    $startTime = strtotime($session['start_time']);
-                    $elapsed = time() - $startTime;
-                    $minutes = floor($elapsed / 60);
-                    $seconds = $elapsed % 60;
-                    $elapsedStr = sprintf('%02d:%02d', $minutes, $seconds);
-                ?>
-                <div class="group relative bg-surface-container rounded-xl overflow-hidden shadow-xl hover:shadow-secondary/5 transition-all">
+                <?php $startTime = strtotime($session['start_time']); ?>
+                <div class="session-card group relative bg-surface-container rounded-xl overflow-hidden shadow-xl hover:shadow-secondary/5 transition-all"
+                     data-start="<?= $startTime ?>" 
+                     data-duration="<?= ($session['duration'] ?? 60) * 60 ?>">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
@@ -120,8 +116,8 @@ require_once __DIR__ . '/../../config/init.php';
                                 <h3 class="text-xl font-bold font-headline mt-2 uppercase"><?php echo htmlspecialchars($session['table_name'] ?? 'Table'); ?></h3>
                             </div>
                             <div class="text-right">
-                                <p class="text-2xl font-black text-secondary-fixed-dim"><?php echo $elapsedStr; ?></p>
-                                <p class="text-[10px] text-on-surface-variant font-bold uppercase">Time Elapsed</p>
+                                <p class="countdown-timer text-2xl font-black text-secondary-fixed-dim">--:--</p>
+                                <p class="text-[10px] text-on-surface-variant font-bold uppercase">Remaining</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 mb-6">
@@ -239,6 +235,42 @@ require_once __DIR__ . '/../../config/init.php';
         </section>
     </main>
     <?php include __DIR__ . '/../includes/footer.php'; ?>
+    <script>
+        function updateTimers() {
+            const now = Math.floor(Date.now() / 1000);
+            document.querySelectorAll('.session-card').forEach(card => {
+                const start = parseInt(card.dataset.start);
+                const totalSeconds = parseInt(card.dataset.duration);
+                const elapsed = now - start;
+                const remaining = totalSeconds - elapsed;
+                
+                const timerDisplay = card.querySelector('.countdown-timer');
+                
+                if (remaining <= 0) {
+                    timerDisplay.textContent = "00:00";
+                    timerDisplay.classList.add('text-error');
+                } else {
+                    const mins = Math.floor(remaining / 60);
+                    const secs = remaining % 60;
+                    timerDisplay.textContent = 
+                        String(mins).padStart(2, '0') + ":" + 
+                        String(secs).padStart(2, '0');
+                }
+            });
+        }
+
+        setInterval(updateTimers, 1000);
+        updateTimers();
+
+        // Responsive Sidebar Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.querySelector('.admin-sidebar');
+        if (menuToggle && sidebar) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+        }
+    </script>
 </body>
 
 </html>

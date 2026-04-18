@@ -26,6 +26,11 @@
             <span class="font-medium font-label">Reservations</span>
         </a>
         <a class="flex items-center gap-3 text-gray-500 px-4 py-3 transition-all hover:bg-[#1c1c1c] hover:text-[#b6a0ff] active:translate-x-1 duration-150"
+            href="<?= URL_ROOT ?>/sessions">
+            <span class="material-symbols-outlined">timer</span>
+            <span class="font-medium font-label">Sessions</span>
+        </a>
+        <a class="flex items-center gap-3 text-gray-500 px-4 py-3 transition-all hover:bg-[#1c1c1c] hover:text-[#b6a0ff] active:translate-x-1 duration-150"
             href="<?= URL_ROOT ?>/tables">
             <span class="material-symbols-outlined">Tables</span>
             <span class="font-medium font-label">Tables</span>
