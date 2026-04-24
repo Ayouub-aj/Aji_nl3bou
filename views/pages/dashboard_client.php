@@ -127,154 +127,55 @@ require_once __DIR__ . '/../../config/init.php';
                         <?php endif; ?>
                     </div>
                 </section>
-                <!-- Recently Played - Horizontal Scrollable Area -->
+                <!-- Gaming History -->
                 <section class="md:col-span-12 mt-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-bold tracking-tight">Recently Played</h3>
-                        <div class="flex gap-2">
-                            <button
-                                class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:bg-surface-bright"><span
-                                    class="material-symbols-outlined text-sm"
-                                    data-icon="chevron_left">chevron_left</span></button>
-                            <button
-                                class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:bg-surface-bright"><span
-                                    class="material-symbols-outlined text-sm"
-                                    data-icon="chevron_right">chevron_right</span></button>
-                        </div>
+                        <h3 class="text-xl font-bold tracking-tight uppercase italic text-on-surface-variant">Gaming History</h3>
+                        <?php if (count($sessionHistory ?? []) > 4): ?>
+                        <button class="text-xs font-black uppercase tracking-widest text-primary hover:underline transition-all">View All Sessions</button>
+                        <?php endif; ?>
                     </div>
+                    
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- Game Card 1 -->
-                        <div
-                            class="bg-surface-container-high rounded-lg overflow-hidden group border border-outline-variant/10">
-                            <div class="h-48 overflow-hidden relative">
-                                <img alt="Board game box art"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    data-alt="top-down artistic macro shot of colorful wooden game pieces and miniature characters from a fantasy board game"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoQuRPG_pUxA7J5jS-AUft0FQYG6_hzK6sT5b3fyW2pPwYRjXWV8MAQ_nIWKUzJS_Nj071Ol770I_Vqikd38JjRaEWwXkZ2fWunDxNGNMDo4C44ckPCchyaCqYHkHwHs-pImM4i4cAwqzVNfZU65inOWl0FiUoMvGlvds3UHyOjVkBbdGrWYplt9cUetRP5IUzi-igzvqp2Iy-QiU4wHXINfw60iy2GNIHnSVFNLfeu4wKOxB5Bt3GeH7eJP1DH9v33R6F3kzTx7w" />
-                                <div
-                                    class="absolute top-3 left-3 bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">
-                                    Strategy</div>
+                        <?php if (empty($sessionHistory)): ?>
+                            <div class="col-span-1 sm:col-span-2 lg:col-span-4 bg-surface-container-high rounded-xl p-8 text-center border border-white/5">
+                                <span class="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-4">history</span>
+                                <p class="text-on-surface-variant">Your playroom story hasn't started yet. Book a table to begin!</p>
                             </div>
-                            <div class="p-5">
-                                <h5 class="font-bold text-base mb-1">Terraforming Mars</h5>
-                                <p class="text-on-surface-variant text-xs mb-4">Played 2 days ago</p>
-                                <div class="flex items-center justify-between bg-surface-container-low rounded-lg p-2">
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="timer">timer</span>
-                                        120m
+                        <?php else: ?>
+                            <?php foreach (array_slice($sessionHistory, 0, 4) as $sh): ?>
+                            <div class="bg-surface-container-high rounded-2xl overflow-hidden group border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+                                <div class="h-32 bg-gradient-to-br from-surface-container-highest to-surface-container flex items-center justify-center relative overflow-hidden">
+                                    <span class="material-symbols-outlined text-5xl text-on-surface-variant/20 absolute -right-2 -bottom-2 rotate-12" data-icon="casino">casino</span>
+                                    <div class="w-16 h-16 rounded-xl bg-background/50 backdrop-blur-md flex items-center justify-center text-primary border border-white/10 z-10">
+                                        <span class="material-symbols-outlined text-3xl">sports_esports</span>
                                     </div>
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="person">person</span>
-                                        1-5
+                                    <div class="absolute top-3 left-3 bg-secondary-container/80 backdrop-blur-sm text-on-secondary-container text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-widest">
+                                        <?= date('M d', strtotime($sh['start_time'])) ?>
                                     </div>
-                                    <button class="text-primary hover:text-primary-fixed">
-                                        <span class="material-symbols-outlined text-sm"
-                                            data-icon="favorite">favorite</span>
-                                    </button>
+                                </div>
+                                <div class="p-5">
+                                    <h5 class="font-black text-on-surface mb-1 truncate uppercase italic"><?= htmlspecialchars($sh['game_title'] ?? 'The Curated Experience') ?></h5>
+                                    <p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mb-4">
+                                        Table <?= htmlspecialchars($sh['table_name'] ?? $sh['table_id']) ?>
+                                    </p>
+                                    <div class="flex items-center justify-between bg-background/30 rounded-xl p-3 border border-white/5">
+                                        <div class="flex flex-col">
+                                            <span class="text-[8px] font-black uppercase text-on-surface-variant">Duration</span>
+                                            <span class="text-xs font-bold text-on-surface"><?= $sh['duration'] ?> MIN</span>
+                                        </div>
+                                        <div class="w-px h-6 bg-white/10"></div>
+                                        <div class="flex flex-col items-end">
+                                            <span class="text-[8px] font-black uppercase text-on-surface-variant">Status</span>
+                                            <span class="text-xs font-bold <?= $sh['status'] === 'active' ? 'text-tertiary animate-pulse' : 'text-on-surface-variant' ?>">
+                                                <?= strtoupper($sh['status']) ?>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Game Card 2 -->
-                        <div
-                            class="bg-surface-container-high rounded-lg overflow-hidden group border border-outline-variant/10">
-                            <div class="h-48 overflow-hidden relative">
-                                <img alt="Board game box art"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    data-alt="artistic bokeh shot of colorful glass gaming tokens and abstract game board textures with moody lighting"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWBxlotyKhzIDHwfrXUzlwrxocFccSyZ7uvucHeW6UT44RkNNaN2aH9ZGFHgcwMXK4vnPUkfNiQj0ZMuhW4Z-mqjbrpdJRto0jbmm8ws3Zwuq6zLnNdyXwyL0PZVQHXHw8Y71reCIRhTUWN-hxbPfZ-knU3gwMTJhBDUFqcuIis4g7JA4Exz393_iGcO0OgAKwGqjdunER5pYSGHOHqg0KCAfAXyOrN3-YVLEESebghtThuUXLMXhWgbEQYiYO1HGgccmmpnxWITM" />
-                                <div
-                                    class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">
-                                    Family</div>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="font-bold text-base mb-1">Wingspan</h5>
-                                <p class="text-on-surface-variant text-xs mb-4">Played 5 days ago</p>
-                                <div class="flex items-center justify-between bg-surface-container-low rounded-lg p-2">
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="timer">timer</span>
-                                        70m
-                                    </div>
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="person">person</span>
-                                        1-5
-                                    </div>
-                                    <button class="text-primary hover:text-primary-fixed">
-                                        <span class="material-symbols-outlined text-sm" data-icon="favorite"
-                                            style="font-variation-settings: 'FILL' 1;">favorite</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Game Card 3 -->
-                        <div
-                            class="bg-surface-container-high rounded-lg overflow-hidden group border border-outline-variant/10">
-                            <div class="h-48 overflow-hidden relative">
-                                <img alt="Board game box art"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    data-alt="close-up of elegant wooden board game tiles with engraved symbols under soft focus warm lighting"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWgWvKyabrdS3rUIQRKptQ5Z6RFDbzhQFzCRtNvNcKfs8aeakh8hRjiWK09bQd-QkzAUb97CFanLyKUOnlcyEMGTiOsaRvMCsd6Wbk4YQbbiFLDCS8eI7-GkHXt1yZnpfidtmFn9awMGUVyvxR9AjSnOEwRTwDHdv-YGy3jWl56pglTwxo06lyrSuQzPjcoaHMW_qZunCLhlR2swjjRnypgBw6QYG2EjqKAC1F4YaIpmv4_Ictftjr9Yc34tLaKQorqr4vvYrrMvE" />
-                                <div
-                                    class="absolute top-3 left-3 bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">
-                                    Strategy</div>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="font-bold text-base mb-1">Root</h5>
-                                <p class="text-on-surface-variant text-xs mb-4">Played last week</p>
-                                <div class="flex items-center justify-between bg-surface-container-low rounded-lg p-2">
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="timer">timer</span>
-                                        90m
-                                    </div>
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="person">person</span>
-                                        2-4
-                                    </div>
-                                    <button class="text-primary hover:text-primary-fixed">
-                                        <span class="material-symbols-outlined text-sm"
-                                            data-icon="favorite">favorite</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Game Card 4 -->
-                        <div
-                            class="bg-surface-container-high rounded-lg overflow-hidden group border border-outline-variant/10">
-                            <div class="h-48 overflow-hidden relative">
-                                <img alt="Board game box art"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    data-alt="atmospheric shot of detailed miniature figurines on a complex fantasy game board with misty background effects"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbtFYuTwHPnkyovU4PpVtN8DJ9TaWaVWU7JUv74FWdo83go3URyK5UeVdqdCLF53i6nz44E4ZW9bxJztwAXry-noCHX-Pv6sJPHES3nxDs2M6adTDJEzAGL8EYcGBiKT2syhCQyRzJHKQ-IcpMG0RMInCCjc6MDjypduLfvNAyWhqPd2Ft-Nph1jXEgYbtthuuiBi8zwOlgl5j0Uf6KGiSrAMIT3UZp4xRbQtTVwdM2JjKd9xC0Lp8Ddmtt5Ex8pzykx267JN_MxQ" />
-                                <div
-                                    class="absolute top-3 left-3 bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">
-                                    Strategy</div>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="font-bold text-base mb-1">Scythe</h5>
-                                <p class="text-on-surface-variant text-xs mb-4">Played 2 weeks ago</p>
-                                <div class="flex items-center justify-between bg-surface-container-low rounded-lg p-2">
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="timer">timer</span>
-                                        115m
-                                    </div>
-                                    <div
-                                        class="flex items-center gap-1 text-[10px] font-medium text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-xs" data-icon="person">person</span>
-                                        1-5
-                                    </div>
-                                    <button class="text-primary hover:text-primary-fixed">
-                                        <span class="material-symbols-outlined text-sm"
-                                            data-icon="favorite">favorite</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </section>
             </div>

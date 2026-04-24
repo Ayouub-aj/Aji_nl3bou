@@ -179,12 +179,18 @@ if ($filter !== 'all') {
                                 </span>
                             </td>
                             <td class="px-6 py-5 text-right">
-                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <?php if ($res['status'] === 'pending'): ?>
                                     <form action="<?= URL_ROOT ?>/reservations/confirm/<?= $res['id'] ?>" method="POST" class="inline">
                                         <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCSRFToken() ?>">
                                         <button type="submit" class="p-2 rounded-lg hover:bg-secondary-container text-on-surface-variant hover:text-secondary transition-colors" title="Confirm">
                                             <span class="material-symbols-outlined">check_circle</span>
+                                        </button>
+                                    </form>
+                                    <?php elseif ($res['status'] === 'confirmed'): ?>
+                                    <form action="<?= URL_ROOT ?>/sessions/start/<?= $res['id'] ?>?redirect=reservations" method="POST" class="inline">
+                                        <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCSRFToken() ?>">
+                                        <button type="submit" class="p-2 rounded-lg hover:bg-tertiary/10 text-on-surface-variant hover:text-tertiary transition-colors" title="Start Session">
+                                            <span class="material-symbols-outlined">play_circle</span>
                                         </button>
                                     </form>
                                     <?php endif; ?>

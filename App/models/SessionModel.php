@@ -32,10 +32,12 @@ class SessionModel
     {
         $sql = "SELECT s.*, 
                        t.name as table_name, t.capacity as table_capacity,
-                       r.client_name, r.players_count
+                       r.client_name, r.players_count,
+                       g.title as game_title
                 FROM sessions s
                 LEFT JOIN tables t ON s.table_id = t.id
                 LEFT JOIN reservations r ON s.reservation_id = r.id
+                LEFT JOIN games g ON r.game_id = g.id
                 ORDER BY s.start_time DESC";
         
         $stmt = $this->pdo->query($sql);
@@ -51,10 +53,12 @@ class SessionModel
     {
         $sql = "SELECT s.*, 
                        t.name as table_name, t.capacity as table_capacity,
-                       r.client_name, r.players_count
+                       r.client_name, r.players_count,
+                       g.title as game_title
                 FROM sessions s
                 LEFT JOIN tables t ON s.table_id = t.id
                 LEFT JOIN reservations r ON s.reservation_id = r.id
+                LEFT JOIN games g ON r.game_id = g.id
                 WHERE s.status = 'active'
                 ORDER BY s.start_time DESC";
         
@@ -106,13 +110,13 @@ class SessionModel
      * @param int $table_id       The table ID being used
      * @return bool True if session was created
      */
-    public function startSession($reservation_id, $table_id)
+    public function startSession($reservation_id, $table_id, $duration = 60, $game_id = null)
     {
-        $sql = "INSERT INTO sessions (reservation_id, table_id, start_time, status) 
-                VALUES (?, ?, NOW(), 'active')";
+        $sql = "INSERT INTO sessions (reservation_id, table_id, game_id, duration, start_time, status) 
+                VALUES (?, ?, ?, ?, NOW(), 'active')";
         
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([$reservation_id, $table_id]);
+        return $stmt->execute([$reservation_id, $table_id, $game_id, $duration]);
     }
 
     /**
@@ -222,5 +226,25 @@ class SessionModel
         $sql = "DELETE FROM sessions WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$session_id]);
+    }
+    /**
+     * Get sessions for a specific user
+     * 
+     * @param int $user_id The user's ID
+     * @return array User's session history
+     */
+    public function getSessionsByUserId($user_id)
+    {
+        $sql = "SELECT s.*, t.name as table_name, g.title as game_title
+                FROM sessions s
+                JOIN reservations r ON s.reservation_id = r.id
+                LEFT JOIN tables t ON s.table_id = t.id
+                LEFT JOIN games g ON r.game_id = g.id
+                WHERE r.users_id = ?
+                ORDER BY s.start_time DESC";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$user_id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

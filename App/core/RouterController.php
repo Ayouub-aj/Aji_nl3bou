@@ -154,6 +154,8 @@ class RouterController
         $this->get('/api/tables/available', 'ReservationController', 'getAvailableTables');
         
         // Session management
+        $this->get('/sessions', 'SessionsController', 'index');
+        $this->post('/sessions/start/{id}', 'SessionsController', 'startSessionForReservation');
         $this->get('/sessions/end/{id}', 'SessionsController', 'endSession');
     }
 

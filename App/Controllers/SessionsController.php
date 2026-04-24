@@ -122,6 +122,34 @@ class SessionsController extends BaseController
      * 
      * @return void
      */
+    /**
+     * Show the admin session management page
+     * 
+     * @return void
+     */
+    public function index(): void
+    {
+        if (!$this->isLoggedIn() || !$this->isAdmin()) {
+            header('Location: ' . \URL_ROOT . '/login');
+            exit;
+        }
+
+        // Get all sessions (active and history)
+        $data['activeSessions'] = $this->sessionModel->getActiveSessions();
+        $data['allSessions'] = $this->sessionModel->getAllSessions();
+        
+        $data['stats'] = [
+            'total' => count($data['allSessions']),
+            'active' => count($data['activeSessions']),
+            'today' => count($this->sessionModel->getSessionsByDate(date('Y-m-d')))
+        ];
+
+        $this->view('pages/sessions_admin', $data);
+    }
+
+    /**
+     * Load admin dashboard view
+     */
     public function adminDashboard(): void
     {
         // Check if user is logged in and is admin
@@ -164,7 +192,6 @@ class SessionsController extends BaseController
             'role' => $_SESSION['role'] ?? 'admin'
         ];
         
-        // Load admin dashboard view
         $this->view('pages/dashboard_admin', $data);
     }
 
@@ -193,6 +220,9 @@ class SessionsController extends BaseController
         
         // Get user's reservations
         $data['reservations'] = $this->reservationModel->getReservationsByUserId($user_id);
+        
+        // Get user's session history
+        $data['sessionHistory'] = $this->sessionModel->getSessionsByUserId($user_id);
         
         // Check if there's a pending reservation to highlight
         if (isset($_SESSION['pending_reservation_id'])) {
@@ -265,17 +295,36 @@ class SessionsController extends BaseController
         $reservation = $this->reservationModel->getReservationById($reservation_id);
         
         if ($reservation) {
+            // Check if session already exists for this reservation
+            $existingSession = $this->sessionModel->getSessionByReservation($reservation_id);
+            if ($existingSession) {
+                // If it already exists, just redirect without error
+                $redirect = $_GET['redirect'] ?? 'dashboard/admin';
+                header('Location: ' . \URL_ROOT . '/' . $redirect);
+                exit;
+            }
+
+            // Get duration (default to 60, or take from game if exists)
+            $duration = 60;
+            if (!empty($reservation['game_id'])) {
+                $game = $this->gameModel->getGameById($reservation['game_id']);
+                if ($game && !empty($game['duration'])) {
+                    $duration = $game['duration'];
+                }
+            }
+
             // Start the session
-            $this->sessionModel->startSession($reservation_id, $reservation['table_id']);
-            
-            // Update reservation status to confirmed/active
-            $this->reservationModel->updateStatus($reservation_id, 'confirmed');
-            
-            // Update table status to occupied
-            $this->tableModel->updateTableStatus($reservation['table_id'], 'occupied');
+            if ($this->sessionModel->startSession($reservation_id, $reservation['table_id'], $duration, $reservation['game_id'])) {
+                // Update reservation status to completed/active
+                $this->reservationModel->updateStatus($reservation_id, 'confirmed');
+                
+                // Update table status to occupied
+                $this->tableModel->updateTableStatus($reservation['table_id'], 'occupied');
+            }
         }
         
-        header('Location: ' . \URL_ROOT . '/dashboard/admin');
+        $redirect = $_GET['redirect'] ?? 'dashboard/admin';
+        header('Location: ' . \URL_ROOT . '/' . $redirect);
         exit;
     }
 
